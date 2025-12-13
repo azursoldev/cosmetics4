@@ -104,7 +104,6 @@
 						<div class="logo">
 							<a href="{{ url('') }}" class="logo-link">
 								<img src="{{ asset('public/theme/default/images/logo.png') }}" alt="Pharmez Logo" class="logo-img">
-								<span class="logo-text">Pharmez.</span>
 							</a>
 						</div>
 					</div>
@@ -327,78 +326,6 @@
 	</div>
 	<!-- Quick View Shop end -->
 	
-	<!-- Start Footer Area - Uray Template -->
-	<footer class="footer-uray">
-		<div class="container">
-			<div class="row footer-content">
-				<!-- Footer Logo & About -->
-				<div class="col-lg-3 col-md-6 col-12">
-					<div class="footer-widget">
-						<div class="footer-logo">
-							<a href="{{ url('') }}">
-								<img src="{{ get_logo() }}" alt="logo" style="max-height: 50px; margin-bottom: 15px;">
-							</a>
-							<p class="footer-tagline">Cosmetic & Beauty</p>
-						</div>
-						<p class="footer-desc">{{ get_trans_option('footer_about_us') != '' ? get_trans_option('footer_about_us') : 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut' }}</p>
-                        <div class="footer-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-linkedin"></i></a>
-                        </div>
-					</div>
-				</div>
-				
-				<!-- Locate Us -->
-				<div class="col-lg-3 col-md-6 col-12">
-					<div class="footer-widget">
-						<h4 class="footer-title">Locate Us</h4>
-						<ul class="footer-links">
-                            <li><i class="fa fa-map-marker"></i> {{ get_option('address', 'No 40 Baria sreet 133/2') }}</li>
-                            <li><i class="fa fa-phone"></i> {{ get_option('phone', '+ (156) 1800-366-6666') }}</li>
-                            <li><i class="fa fa-envelope"></i> {{ get_option('email', 'Eric-82@example.com') }}</li>
-                            <li><i class="fa fa-globe"></i> {{ get_option('website', 'www.uray.com') }}</li>
-						</ul>
-					</div>
-				</div>
-				
-				<!-- Profile -->
-				<div class="col-lg-3 col-md-6 col-12">
-					<div class="footer-widget">
-						<h4 class="footer-title">Profile</h4>
-						<ul class="footer-links">
-							<li><a href="{{ url('/my_account') }}">My account</a></li>
-							<li><a href="{{ url('/checkout') }}">Checkout</a></li>
-							<li><a href="{{ url('/my_account/orders') }}">Order Tracking</a></li>
-							<li><a href="{{ url('/contact') }}">Help & Support</a></li>
-						</ul>
-					</div>
-				</div>
-				
-				<!-- Newsletter -->
-				<div class="col-lg-3 col-md-6 col-12">
-					<div class="footer-widget">
-						<h4 class="footer-title">Newsletter</h4>
-						<p class="newsletter-desc">Subscribe to our newsletter</p>
-						<form action="{{ url('/newsletter/subscribe') }}" method="POST" class="footer-newsletter">
-							@csrf
-							<div class="newsletter-input">
-								<input type="email" name="email" placeholder="Email" required>
-                                <button type="submit"><i class="fa fa-chevron-right"></i></button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-			
-			<!-- Footer Bottom -->
-			<div class="footer-bottom">
-				<p class="copyright-text">@2019 {{ get_option('site_title', 'Uray') }}.Get The Theme</p>
-			</div>
-		</div>
-	</footer>
-	<!-- /End Footer Area -->
  
 	<!-- Jquery -->
     <script src="{{ asset('public/theme/default/js/jquery.min.js') }}"></script>
