@@ -70,7 +70,7 @@
                     <div class="hero-buttons">
                         <a href="{{ url('/shop') }}" class="btn-shop-now">Shop Now</a>
                         <a href="{{ url('/upload-prescription') }}" class="btn-upload-prescription">
-                            <i class="fa fa-cloud-upload-alt"></i>
+                            <i class="fa fa-arrow-up"></i>
                             Upload Prescription
                         </a>
                     </div>
