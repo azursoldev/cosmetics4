@@ -66,14 +66,7 @@
                         <span>• Online</span>
                     </div>
                     <h1 class="hero-title">Instant Pharmacy<br>Access For You</h1>
-                    <p class="hero-description">Order prescription and over-the-counter medicines online with confidence.</p>
-                    <div class="hero-buttons">
-                        <a href="{{ url('/shop') }}" class="btn-shop-now">Shop Now</a>
-                        <a href="{{ url('/upload-prescription') }}" class="btn-upload-prescription">
-                            <i class="fa fa-arrow-up"></i>
-                            Upload Prescription
-                        </a>
-                    </div>
+                  
                 </div>
                 <div class="col-lg-5 col-md-12 hero-content-right">
                     <div class="hero-clients">
@@ -88,6 +81,17 @@
                             <p class="client-text">Happy clients</p>
                         </div>
                     </div>
+                    <div class="hero-botom">
+                        <p class="hero-description">Order prescription and over-the-counter medicines online with confidence.</p>
+                        <div class="hero-buttons">
+                            <a href="{{ url('/shop') }}" class="btn-shop-now">Shop Now</a>
+                            <a href="{{ url('/upload-prescription') }}" class="btn-upload-prescription">
+                                <i class="fa fa-arrow-up"></i>
+                                Upload Prescription
+                            </a>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
 
@@ -986,6 +990,9 @@
     padding: 100px 0 80px 0;
     overflow: hidden;
     border-radius: 0 0 30px 30px;
+    width: 95%;
+    margin: 0 auto;
+    border-radius: 30px;
 }
 
 /* Medical Cross Pattern Background */
@@ -1117,10 +1124,14 @@
 .hero-content-right {
     position: relative;
     z-index: 2;
-    display: flex;
+    /* display: flex;
     justify-content: flex-end;
-    align-items: center;
+    align-items: center; */
     padding: 0;
+}
+.hero-botom {
+    display: flex;
+    flex-direction: column;
 }
 
 .hero-clients {
@@ -1355,7 +1366,7 @@
 .benefits-section .row {
     display: flex;
     flex-wrap: nowrap;
-    gap: 60px;
+    gap: 35px;
     justify-content: center;
     align-items: center;
 }
@@ -2451,7 +2462,7 @@
     padding-right: 0;
     flex: 0 0 auto;
     width: auto;
-    margin-right: 30px;
+    
 }
 
 .featured-products-section .col-lg-3:last-child {
@@ -3196,7 +3207,7 @@
     padding: 60px 80px;
     position: relative;
     overflow: hidden;
-    width: 1490.4px;
+    
     height: 742.2px;
     max-width: 1490.4px;
     margin: 0 auto;
