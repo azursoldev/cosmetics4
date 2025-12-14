@@ -151,9 +151,9 @@
 										<img src="{{ asset('public/theme/default/images/header-admin.png') }}" alt="User" class="header-icon">
 									</a>
 								</li>
-								<li>
+								{{-- <li>
 									<a href="{{ url('/contact') }}" class="btn-contact">Contact Us</a>
-								</li>
+								</li> --}}
 								<li>
 									<div class="language-selector">
 										<a href="#" class="lang-btn" id="selectLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -208,9 +208,11 @@
 		<!-- Header Mobile -->
 		<div class="container-fluid">
 			<div class="header-mobile">
-				<div class="header-menu-mobile d-flex justify-content-between">
+				<div class="header-menu-mobile d-flex justify-content-between align-items-center">
 					<div>
-						<button><span class="lnr lnr-menu click-mobile"></span></button>
+						<button class="mobile-menu-toggle click-mobile" type="button" aria-label="Toggle menu">
+							<i class="fa fa-bars"></i>
+						</button>
 					</div>
 					<div class="logo">
 						<a href="{{ url('') }}">
@@ -269,6 +271,9 @@
 			
 			<!-- Mobile Menu -->
 			<div class="menu-mobile">
+				<button class="mobile-menu-close" type="button" aria-label="Close menu">
+					<i class="fa fa-times"></i>
+				</button>
 				<ul>
 					<li><a href="{{ url('/') }}" class="{{ Request::is('/') ? 'menu-active' : '' }}">home</a></li>
                                
@@ -396,6 +401,11 @@
 			// Mobile Menu Toggle
 			$('.click-mobile').click(function() {
 				$('.menu-mobile').toggleClass('active');
+			});
+			
+			// Mobile Menu Close
+			$('.mobile-menu-close').click(function() {
+				$('.menu-mobile').removeClass('active');
 			});
 			
 			// Mobile Dropdown

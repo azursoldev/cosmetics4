@@ -85,10 +85,10 @@
                         <p class="hero-description">Order prescription and over-the-counter medicines online with confidence.</p>
                         <div class="hero-buttons">
                             <a href="{{ url('/shop') }}" class="btn-shop-now">Shop Now</a>
-                            <a href="{{ url('/upload-prescription') }}" class="btn-upload-prescription">
+                            {{-- <a href="{{ url('/upload-prescription') }}" class="btn-upload-prescription">
                                 <i class="fa fa-arrow-up"></i>
                                 Upload Prescription
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                     
