@@ -434,229 +434,86 @@
             
             <!-- Products Grid -->
             <div class="row best-selling-products-grid">
-                <!-- Product 1 -->
-                <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                    <div class="best-selling-product-card">
-                        <div class="product-image-wrapper">
-                            <img src="{{ asset('pharmez1/pharmez1/images/best-product1.png') }}" alt="ImmunoBoost" class="product-image">
-                            <button class="product-wishlist-btn">
-                                <i class="fa fa-heart"></i>
-                            </button>
-                        </div>
-                        <div class="product-details">
-                            <div class="product-top-row">
-                                <p class="product-category">Vitamin</p>
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <span>4.8/5</span>
-                                </div>
-                            </div>
-                            <h3 class="product-name">ImmunoBoost</h3>
-                            <div class="product-bottom-row">
-                                <button class="add-to-cart-btn">
-                                    Add to cart
-                                </button>
-                                <div class="product-price">$63.00</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @php
+                    // Try to get best selling products from options first
+                    $bestSellerIds = get_option('best_seller_products');
+                    $bestSellingProducts = collect();
+                    
+                    if ($bestSellerIds) {
+                        $ids = is_array($bestSellerIds) ? $bestSellerIds : explode(',', $bestSellerIds);
+                        $bestSellingProducts = \App\Entity\Product\Product::where('is_active', 1)
+                            ->whereIn('id', $ids)
+                            ->orderByRaw('FIELD(id, ' . implode(',', $ids) . ')')
+                            ->take(8)
+                            ->get();
+                    }
+                    
+                    // If no configured best sellers or not enough, get recent products
+                    if ($bestSellingProducts->count() < 8) {
+                        $recentProducts = \App\Entity\Product\Product::where('is_active', 1)
+                            ->whereNotIn('id', $bestSellingProducts->pluck('id')->toArray())
+                            ->orderBy('created_at', 'desc')
+                            ->take(8 - $bestSellingProducts->count())
+                            ->get();
+                        $bestSellingProducts = $bestSellingProducts->merge($recentProducts);
+                    }
+                @endphp
                 
-                <!-- Product 2 -->
-                <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
+                @foreach($bestSellingProducts->take(8) as $product)
+                <div class="col-lg-3 col-md-6 col-12 {{ $loop->last ? '' : 'mb-4 mb-lg-0' }}">
                     <div class="best-selling-product-card">
                         <div class="product-image-wrapper">
-                            <img src="{{ asset('pharmez1/pharmez1/images/best-product2.png') }}" alt="MetaboTrim" class="product-image">
+                            <a href="{{ url('/product/'.$product->slug) }}">
+                                @if($product->image && $product->image->file_path)
+                                    <img src="{{ asset('storage/app/'.$product->image->file_path) }}" alt="{{ $product->name }}" class="product-image">
+                                @else
+                                    <img src="{{ asset('public/theme/default/images/product.jpg') }}" alt="{{ $product->name }}" class="product-image">
+                                @endif
+                            </a>
                             <button class="product-wishlist-btn">
                                 <i class="fa fa-heart"></i>
                             </button>
                         </div>
                         <div class="product-details">
                             <div class="product-top-row">
-                                <p class="product-category">Herbal</p>
+                                <p class="product-category">
+                                    @if($product->categories->first())
+                                        <a href="{{ url('/shop') }}" style="color: inherit; text-decoration: none;">{{ $product->categories->first()->name }}</a>
+                                    @else
+                                        Product
+                                    @endif
+                                </p>
                                 <div class="product-rating">
                                     <i class="fa fa-star"></i>
                                     <span>4.8/5</span>
                                 </div>
                             </div>
-                            <h3 class="product-name">MetaboTrim</h3>
+                            <h3 class="product-name">
+                                <a href="{{ url('/product/'.$product->slug) }}" style="color: inherit; text-decoration: none;">{{ $product->name }}</a>
+                            </h3>
                             <div class="product-bottom-row">
-                                <button class="add-to-cart-btn">
-                                    Add to cart
-                                </button>
-                                <div class="product-price">$87.00</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product 3 -->
-                <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                    <div class="best-selling-product-card">
-                        <div class="product-image-wrapper">
-                            <img src="{{ asset('pharmez1/pharmez1/images/best-product3.png') }}" alt="DermaGlow" class="product-image">
-                            <button class="product-wishlist-btn">
-                                <i class="fa fa-heart"></i>
-                            </button>
-                        </div>
-                        <div class="product-details">
-                            <div class="product-top-row">
-                                <p class="product-category">Cream</p>
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <span>4.8/5</span>
+                                @if($product->product_type != 'variable_product')
+                                    <a href="{{ url('add_to_cart/'.$product->id) }}" class="add-to-cart-btn add_to_cart" data-type="{{ $product->product_type }}">
+                                        Add to cart
+                                    </a>
+                                @else
+                                    <a href="{{ url('/product/'.$product->slug) }}" class="add-to-cart-btn">
+                                        View Options
+                                    </a>
+                                @endif
+                                <div class="product-price">
+                                    @if($product->discount_price)
+                                        <span class="price-old">{{ get_option('currency_symbol') }}{{ $product->price }}</span>
+                                        <span class="price-new">{{ get_option('currency_symbol') }}{{ $product->discount_price }}</span>
+                                    @else
+                                        {{ get_option('currency_symbol') }}{{ $product->price }}
+                                    @endif
                                 </div>
                             </div>
-                            <h3 class="product-name">DermaGlow</h3>
-                            <div class="product-bottom-row">
-                                <button class="add-to-cart-btn">
-                                    Add to cart
-                                </button>
-                                <div class="product-price">$55.00</div>
-                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Product 4 -->
-                <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                    <div class="best-selling-product-card">
-                        <div class="product-image-wrapper">
-                            <img src="{{ asset('pharmez1/pharmez1/images/best-product4.png') }}" alt="CoughRelief Max" class="product-image">
-                            <button class="product-wishlist-btn">
-                                <i class="fa fa-heart"></i>
-                            </button>
-                        </div>
-                        <div class="product-details">
-                            <div class="product-top-row">
-                                <p class="product-category">Syrup</p>
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <span>4.8/5</span>
-                                </div>
-                            </div>
-                            <h3 class="product-name">CoughRelief Max</h3>
-                            <div class="product-bottom-row">
-                                <button class="add-to-cart-btn">
-                                    Add to cart
-                                </button>
-                                <div class="product-price">$42.00</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product 5 -->
-                <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                    <div class="best-selling-product-card">
-                        <div class="product-image-wrapper">
-                            <img src="{{ asset('pharmez1/pharmez1/images/best-product5.png') }}" alt="NutriCore Essentials" class="product-image">
-                            <button class="product-wishlist-btn">
-                                <i class="fa fa-heart"></i>
-                            </button>
-                        </div>
-                        <div class="product-details">
-                            <div class="product-top-row">
-                                <p class="product-category">Vitamin</p>
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <span>4.8/5</span>
-                                </div>
-                            </div>
-                            <h3 class="product-name">NutriCore Essentials</h3>
-                            <div class="product-bottom-row">
-                                <button class="add-to-cart-btn">
-                                    Add to cart
-                                </button>
-                                <div class="product-price">$12.00</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product 6 -->
-                <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                    <div class="best-selling-product-card">
-                        <div class="product-image-wrapper">
-                            <img src="{{ asset('pharmez1/pharmez1/images/best-product6.png') }}" alt="Slimvia Burn" class="product-image">
-                            <button class="product-wishlist-btn">
-                                <i class="fa fa-heart"></i>
-                            </button>
-                        </div>
-                        <div class="product-details">
-                            <div class="product-top-row">
-                                <p class="product-category">Herbal</p>
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <span>4.8/5</span>
-                                </div>
-                            </div>
-                            <h3 class="product-name">Slimvia Burn</h3>
-                            <div class="product-bottom-row">
-                                <button class="add-to-cart-btn">
-                                    Add to cart
-                                </button>
-                                <div class="product-price">$26.00</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product 7 -->
-                <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                    <div class="best-selling-product-card">
-                        <div class="product-image-wrapper">
-                            <img src="{{ asset('pharmez1/pharmez1/images/best-product7.png') }}" alt="AcneShield Gel" class="product-image">
-                            <button class="product-wishlist-btn">
-                                <i class="fa fa-heart"></i>
-                            </button>
-                        </div>
-                        <div class="product-details">
-                            <div class="product-top-row">
-                                <p class="product-category">Cream</p>
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <span>4.8/5</span>
-                                </div>
-                            </div>
-                            <h3 class="product-name">AcneShield Gel</h3>
-                            <div class="product-bottom-row">
-                                <button class="add-to-cart-btn">
-                                    Add to cart
-                                </button>
-                                <div class="product-price">$82.00</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product 8 -->
-                <div class="col-lg-3 col-md-6 col-12">
-                    <div class="best-selling-product-card">
-                        <div class="product-image-wrapper">
-                            <img src="{{ asset('pharmez1/pharmez1/images/best-product8.png') }}" alt="FluAway Tabs" class="product-image">
-                            <button class="product-wishlist-btn">
-                                <i class="fa fa-heart"></i>
-                            </button>
-                        </div>
-                        <div class="product-details">
-                            <div class="product-top-row">
-                                <p class="product-category">Tablet</p>
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <span>4.8/5</span>
-                                </div>
-                            </div>
-                            <h3 class="product-name">FluAway Tabs</h3>
-                            <div class="product-bottom-row">
-                                <button class="add-to-cart-btn">
-                                    Add to cart
-                                </button>
-                                <div class="product-price">$36.00</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -856,93 +713,46 @@
     <!--end Product Our-->
 
     <!-- Latest News (Blog) -->
-    <div class="container">
-        <div class="lastest">
-            <div class="title">
-                <h2>Latest News</h2>
+    <div class="blog-posts-section">
+        <div class="container">
+            <div class="blog-section-header">
+                <span class="blog-section-badge">NEWS & ARTICLES</span>
+                <h2 class="blog-section-title">Our Latest Blog Posts</h2>
             </div>
-            <div class="row">
+            <div class="row blog-posts-grid">
                 <!-- Blog Post 1 -->
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                    <div class="blog-card blog-card-1">
-                        <div class="blog-card-content">
-                            <div class="blog-image">
-                                <img src="{{ asset('public/theme/default/images/lastest1.jpg') }}" alt="">
-                            </div>
-                            <div class="blog-info">
-                                <h4><a href="#">But I must explain to you how all this</a></h4>
-                                <p class="blog-meta">By Sugar / May 18.2019</p>
-                            </div>
+                <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                    <div class="blog-post-card">
+                        <div class="blog-post-image">
+                            <img src="{{ asset('pharmez1/pharmez1/images/news-and-articles-img1.jpg') }}" alt="Natural Ways to Strengthen Your Immune System" class="blog-img">
+                        </div>
+                        <div class="blog-post-content">
+                            <h3 class="blog-post-title">5 Natural Ways to Strengthen Your Immune System</h3>
+                            <p class="blog-post-description">Discover simple lifestyle habits and key supplements that can naturally boost your immunity...</p>
                         </div>
                     </div>
                 </div>
                 <!-- Blog Post 2 -->
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                    <div class="blog-card blog-card-2">
-                        <div class="blog-card-content">
-                            <div class="blog-image">
-                                <img src="{{ asset('public/theme/default/images/lastest2.jpg') }}" alt="">
-                            </div>
-                            <div class="blog-info">
-                                <h4><a href="#">Neque porr quisquam dolorem</a></h4>
-                                <p class="blog-meta">By Sugar / May 18.2019</p>
-                            </div>
+                <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                    <div class="blog-post-card">
+                        <div class="blog-post-image">
+                            <img src="{{ asset('pharmez1/pharmez1/images/news-and-articles-img2.jpg') }}" alt="Skincare Advice for Sensitive Skin" class="blog-img">
+                        </div>
+                        <div class="blog-post-content">
+                            <h3 class="blog-post-title">Skincare Advice for Sensitive Skin: Simple Tips for a Calmer</h3>
+                            <p class="blog-post-description">Learn how to care for sensitive skin with gentle routines and dermatologist-recommended products.</p>
                         </div>
                     </div>
                 </div>
                 <!-- Blog Post 3 -->
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                    <div class="blog-card blog-card-3">
-                        <div class="blog-card-content">
-                            <div class="blog-image">
-                                <img src="{{ asset('public/theme/default/images/lastest3.jpg') }}" alt="">
-                            </div>
-                            <div class="blog-info">
-                                <h4><a href="#">Ut enim ad minima veniam quis nostrum</a></h4>
-                                <p class="blog-meta">By Sugar / May 18.2019</p>
-                            </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="blog-post-card">
+                        <div class="blog-post-image">
+                            <img src="{{ asset('pharmez1/pharmez1/images/news-and-articles-img3.jpg') }}" alt="Do You Really Need Supplements" class="blog-img">
                         </div>
-                    </div>
-                </div>
-                <!-- Blog Post 4 -->
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                    <div class="blog-card blog-card-4">
-                        <div class="blog-card-content">
-                            <div class="blog-image">
-                                <img src="{{ asset('public/theme/default/images/lastest4.jpg') }}" alt="">
-                            </div>
-                            <div class="blog-info">
-                                <h4><a href="#">Itaque earum rerum hic tenetur</a></h4>
-                                <p class="blog-meta">By Sugar / May 18.2019</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Blog Post 5 -->
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                    <div class="blog-card blog-card-5">
-                        <div class="blog-card-content">
-                            <div class="blog-image">
-                                <img src="{{ asset('public/theme/default/images/lastest5.jpg') }}" alt="">
-                            </div>
-                            <div class="blog-info">
-                                <h4><a href="#">In a free hour, when our power</a></h4>
-                                <p class="blog-meta">By Sugar / May 18.2019</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Blog Post 6 -->
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                    <div class="blog-card blog-card-6">
-                        <div class="blog-card-content">
-                            <div class="blog-image">
-                                <img src="{{ asset('public/theme/default/images/lastest6.jpg') }}" alt="">
-                            </div>
-                            <div class="blog-info">
-                                <h4><a href="#">On the other hand, we denounce</a></h4>
-                                <p class="blog-meta">By Sugar / May 18.2019</p>
-                            </div>
+                        <div class="blog-post-content">
+                            <h3 class="blog-post-title">Do You Really Need Supplements? a Practical Guide to Boosting</h3>
+                            <p class="blog-post-description">Find out when supplements are helpful and how to choose the right ones for your health needs.</p>
                         </div>
                     </div>
                 </div>
@@ -2079,6 +1889,8 @@
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .best-selling-product-card .product-price {
@@ -2089,6 +1901,49 @@
     font-family: 'Poppins', sans-serif;
     white-space: nowrap;
     transition: color 0.3s ease;
+}
+
+.best-selling-product-card .product-price .price-old {
+    font-size: 18px;
+    color: #999;
+    text-decoration: line-through;
+    margin-right: 8px;
+    font-weight: 400;
+}
+
+.best-selling-product-card .product-price .price-new {
+    color: #8B5CF6;
+    font-weight: 700;
+}
+
+.best-selling-product-card:hover .product-price .price-new {
+    color: #fff;
+}
+
+.best-selling-product-card .product-image-wrapper a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.best-selling-product-card .product-name a {
+    color: #1f2937;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.best-selling-product-card:hover .product-name a {
+    color: #fff;
+}
+
+.best-selling-product-card .product-category a {
+    color: #4b5563;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.best-selling-product-card:hover .product-category a {
+    color: #fff;
 }
 
 /* Hover Effects on Best Selling Product Card */
@@ -2936,6 +2791,11 @@
 .card-img-top {
     position: relative;
     overflow: hidden;
+        min-height: 338px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #faf7ff;
 }
 .card-img-top img {
     width: 100%;
@@ -3015,104 +2875,169 @@
 .price {
     font-size: 18px;
     font-weight: bold;
-    color: #ffa6a8;
+    color: #000000;
 }
 .price del {
     color: #999;
     margin-right: 10px;
 }
 
-/* Latest News */
-.lastest {
-    padding: 100px 0;
+/* Blog Posts Section */
+.blog-posts-section {
     background: #fff;
+    padding: 80px 0;
+    position: relative;
 }
-.lastest .title h2 {
-    font-size: 40px;
-    font-weight: bold;
-    margin-bottom: 50px;
+
+.blog-section-header {
     text-align: center;
+    margin-bottom: 50px;
 }
-.blog-card {
-    margin-bottom: 30px;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: all 0.3s;
+
+.blog-section-badge {
+    display: inline-block;
+    color: #8B5CF6;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    font-family: 'Poppins', sans-serif;
 }
-.blog-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+
+.blog-section-title {
+    font-size: 42px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
 }
-.blog-card-content {
+
+.blog-posts-grid {
     display: flex;
-    align-items: center;
-    padding: 20px;
-    min-height: 150px;
+    flex-wrap: wrap;
+    gap: 0px;
+    justify-content: center;
 }
-.blog-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 10px;
+
+.blog-post-card {
+    background: #fff;
+    border-radius: 20px;
     overflow: hidden;
-    flex-shrink: 0;
-    margin-right: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 411px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
 }
-.blog-image img {
+
+.blog-post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.blog-post-image {
+    width: 100%;
+    height: 293px;
+    overflow: hidden;
+    position: relative;
+    background: #f0f0f0;
+}
+
+.blog-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
 }
-.blog-info {
-    flex: 1;
+
+.blog-post-card:hover .blog-img {
+    transform: scale(1.05);
 }
-.blog-info h4 {
-    margin: 0 0 10px 0;
-    font-size: 16px;
-    font-weight: 600;
+
+.blog-post-content {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+}
+
+.blog-post-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 15px 0;
+    font-family: 'Poppins', sans-serif;
     line-height: 1.4;
 }
-.blog-info h4 a {
-    color: #222;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-.blog-info h4 a:hover {
-    color: #ffa6a8;
-}
-.blog-meta {
-    color: #999;
-    font-size: 13px;
+
+.blog-post-description {
+    font-size: 15px;
+    color: #4b5563;
     margin: 0;
+    line-height: 1.6;
+    font-family: 'Poppins', sans-serif;
 }
 
-/* Different colored backgrounds for blog cards */
-.blog-card-1 {
-    background: linear-gradient(135deg, #fff0f0 0%, #ffe8e8 100%);
-}
-.blog-card-2 {
-    background: linear-gradient(135deg, #ffd7e8 0%, #ffc4dd 100%);
-}
-.blog-card-3 {
-    background: linear-gradient(135deg, #d7e8ff 0%, #c4d9ff 100%);
-}
-.blog-card-4 {
-    background: linear-gradient(135deg, #ffe8f0 0%, #ffd7e4 100%);
-}
-.blog-card-5 {
-    background: linear-gradient(135deg, #e8f0ff 0%, #d7e4ff 100%);
-}
-.blog-card-6 {
-    background: linear-gradient(135deg, #ffe8e8 0%, #ffd4d4 100%);
-}
-
-@media (max-width: 768px) {
-    .blog-card-content {
-        flex-direction: column;
-        text-align: center;
+@media (max-width: 991px) {
+    .blog-posts-section {
+        padding: 60px 0;
     }
-    .blog-image {
-        margin-right: 0;
-        margin-bottom: 15px;
+    
+    .blog-section-title {
+        font-size: 32px;
+    }
+    
+    .blog-posts-grid {
+        gap: 20px;
+    }
+    
+    .blog-post-card {
+        max-width: 100%;
+    }
+    
+    .blog-post-image {
+        height: 250px;
+    }
+}
+
+@media (max-width: 767px) {
+    .blog-posts-section {
+        padding: 50px 0;
+    }
+    
+    .blog-section-header {
+        margin-bottom: 40px;
+    }
+    
+    .blog-section-badge {
+        font-size: 12px;
+    }
+    
+    .blog-section-title {
+        font-size: 28px;
+    }
+    
+    .blog-posts-grid {
+        gap: 20px;
+    }
+    
+    .blog-post-image {
+        height: 220px;
+    }
+    
+    .blog-post-content {
+        padding: 20px;
+    }
+    
+    .blog-post-title {
+        font-size: 18px;
+    }
+    
+    .blog-post-description {
+        font-size: 14px;
     }
 }
 
@@ -3197,7 +3122,7 @@
 /* Testimonials Section */
 .testimonials-section {
     background: #fff;
-    padding: 100px 0;
+    padding: 100px 0 0px;
     position: relative;
 }
 
