@@ -119,25 +119,11 @@
 										@foreach(App\Entity\Category\Category::where('parent_id',null)->take(8)->get() as $category)
 											<li><a href="{{ url('/shop?category='.$category->slug) }}">{{ $category->translation->name }}</a></li>
 										@endforeach
-										<li><a href="{{ url('/cart') }}">Cart</a></li>
-										<li><a href="{{ url('/wish_list') }}">Wish List</a></li>
+										
 									</ul>
 								</li>
-								<li><a href="{{ url('/pages') }}" class="{{ Request::is('pages*') ? 'menu-active' : '' }}">Pages <i class="fa fa-angle-down"></i></a>
-									<ul>
-										<li><a href="{{ url('/about-us') }}">About Us</a></li>
-										<li><a href="{{ url('/faq') }}">FAQ</a></li>
-										<li><a href="{{ url('/terms-&-conditions') }}">Terms & Conditions</a></li>
-										<li><a href="{{ url('/privacy-policy') }}">Privacy Policy</a></li>
-									</ul>
-								</li>
-								<li><a href="{{ url('/team') }}" class="{{ Request::is('team*') ? 'menu-active' : '' }}">Team</a></li>
-								<li><a href="{{ url('/blog') }}" class="{{ Request::is('blog*') ? 'menu-active' : '' }}">Blog <i class="fa fa-angle-down"></i></a>
-									<ul>
-										<li><a href="{{ url('/blog') }}">All Posts</a></li>
-										<li><a href="{{ url('/blog/category') }}">Categories</a></li>
-									</ul>
-								</li>
+								
+								
 							</ul>
 						</div>
 					</div>
@@ -187,7 +173,7 @@
 					</div>
 					
 					<!-- Introduce Sidebar -->
-					<div class="introduce">
+					{{-- <div class="introduce">
 						<div class="content-introduce">
 							<h3>follow instagram</h3>
 							<p>@Cosmetic_beauty</p>
@@ -214,7 +200,7 @@
 							</div>
 							<span class="lnr lnr-cross close-introduce"></span>
 						</div>
-					</div>
+					</div> --}}
 				</div>
 			</div>
 		</div>
@@ -252,7 +238,7 @@
 			</div>
 			
 			<!-- Introduce Sidebar Mobile -->
-			<div class="introduce">
+			{{-- <div class="introduce">
 				<div class="content-introduce">
 					<h3>follow instagram</h3>
 					<p>@Cosmetic_beauty</p>
@@ -279,7 +265,7 @@
 					</div>
 					<span class="lnr lnr-cross close-introduce"></span>
 				</div>
-			</div>
+			</div> --}}
 			
 			<!-- Mobile Menu -->
 			<div class="menu-mobile">

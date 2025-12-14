@@ -244,117 +244,86 @@
             <!-- Products Grid -->
             <div class="products-carousel-container">
                 <div class="products-carousel-track">
-                <!-- Product 1 -->
-                <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                    <div class="featured-product-card">
-                        <div class="product-image-wrapper">
-                            <img src="{{ asset('public/theme/default/images/product1.png') }}" alt="VitalEase Multivitamins" class="product-image">
-                            <button class="product-wishlist-btn">
-                                <i class="fa fa-heart"></i>
-                            </button>
-                        </div>
-                        <div class="product-details">
-                            <div class="product-top-row">
-                                <p class="product-category">Supplement</p>
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <span>4.8/5</span>
-                                </div>
-                            </div>
-                            <h3 class="product-name">VitalEase Multivitamins</h3>
-                            <div class="product-bottom-row">
-                                <button class="add-to-cart-btn">
-                                    Add to cart
-                                </button>
-                                <div class="product-price">$63.00</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @php
+                    // Try to get featured products from options first
+                    $featuredProductIds = get_option('featured_products');
+                    $featuredProducts = collect();
+                    
+                    if ($featuredProductIds) {
+                        $ids = is_array($featuredProductIds) ? $featuredProductIds : explode(',', $featuredProductIds);
+                        $featuredProducts = \App\Entity\Product\Product::where('is_active', 1)
+                            ->whereIn('id', $ids)
+                            ->orderByRaw('FIELD(id, ' . implode(',', $ids) . ')')
+                            ->take(4)
+                            ->get();
+                    }
+                    
+                    // If no configured featured products or not enough, get recent products
+                    if ($featuredProducts->count() < 4) {
+                        $recentProducts = \App\Entity\Product\Product::where('is_active', 1)
+                            ->whereNotIn('id', $featuredProducts->pluck('id')->toArray())
+                            ->orderBy('created_at', 'desc')
+                            ->take(4 - $featuredProducts->count())
+                            ->get();
+                        $featuredProducts = $featuredProducts->merge($recentProducts);
+                    }
+                @endphp
                 
-                <!-- Product 2 -->
-                <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
+                @foreach($featuredProducts->take(4) as $product)
+                <div class="col-lg-3 col-md-6 col-12 {{ $loop->last ? '' : 'mb-4 mb-lg-0' }}">
                     <div class="featured-product-card">
                         <div class="product-image-wrapper">
-                            <img src="{{ asset('public/theme/default/images/product2.png') }}" alt="DermaGlow Skin Cream" class="product-image">
+                            <a href="{{ url('/product/'.$product->slug) }}">
+                                @if($product->image && $product->image->file_path)
+                                    <img src="{{ asset('storage/app/'.$product->image->file_path) }}" alt="{{ $product->name }}" class="product-image">
+                                @else
+                                    <img src="{{ asset('public/theme/default/images/product.jpg') }}" alt="{{ $product->name }}" class="product-image">
+                                @endif
+                            </a>
                             <button class="product-wishlist-btn">
                                 <i class="fa fa-heart"></i>
                             </button>
                         </div>
                         <div class="product-details">
                             <div class="product-top-row">
-                                <p class="product-category">Healthy Skin</p>
+                                <p class="product-category">
+                                    @if($product->categories->first())
+                                        <a href="{{ url('/shop') }}" style="color: inherit; text-decoration: none;">{{ $product->categories->first()->name }}</a>
+                                    @else
+                                        Product
+                                    @endif
+                                </p>
                                 <div class="product-rating">
                                     <i class="fa fa-star"></i>
                                     <span>4.8/5</span>
                                 </div>
                             </div>
-                            <h3 class="product-name">DermaGlow Skin Cream</h3>
+                            <h3 class="product-name">
+                                <a href="{{ url('/product/'.$product->slug) }}" style="color: inherit; text-decoration: none;">{{ $product->name }}</a>
+                            </h3>
                             <div class="product-bottom-row">
-                                <button class="add-to-cart-btn">
-                                    Add to cart
-                                </button>
-                                <div class="product-price">$84.00</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product 3 -->
-                <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
-                    <div class="featured-product-card">
-                        <div class="product-image-wrapper">
-                            <img src="{{ asset('public/theme/default/images/product3.png') }}" alt="CalmFlu Relief Syrup" class="product-image">
-                            <button class="product-wishlist-btn">
-                                <i class="fa fa-heart"></i>
-                            </button>
-                        </div>
-                        <div class="product-details">
-                            <div class="product-top-row">
-                                <p class="product-category">Flu Remedy</p>
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <span>4.8/5</span>
+                                @if($product->product_type != 'variable_product')
+                                    <a href="{{ url('add_to_cart/'.$product->id) }}" class="add-to-cart-btn add_to_cart" data-type="{{ $product->product_type }}">
+                                        Add to cart
+                                    </a>
+                                @else
+                                    <a href="{{ url('/product/'.$product->slug) }}" class="add-to-cart-btn">
+                                        View Options
+                                    </a>
+                                @endif
+                                <div class="product-price">
+                                    @if($product->discount_price)
+                                        <span class="price-old">{{ get_option('currency_symbol') }}{{ $product->price }}</span>
+                                        <span class="price-new">{{ get_option('currency_symbol') }}{{ $product->discount_price }}</span>
+                                    @else
+                                        {{ get_option('currency_symbol') }}{{ $product->price }}
+                                    @endif
                                 </div>
                             </div>
-                            <h3 class="product-name">CalmFlu Relief Syrup</h3>
-                            <div class="product-bottom-row">
-                                <button class="add-to-cart-btn">
-                                    Add to cart
-                                </button>
-                                <div class="product-price">$96.00</div>
-                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Product 4 -->
-                <div class="col-lg-3 col-md-6 col-12">
-                    <div class="featured-product-card">
-                        <div class="product-image-wrapper">
-                            <img src="{{ asset('public/theme/default/images/product4.png') }}" alt="NutriSlim Capsules" class="product-image">
-                            <button class="product-wishlist-btn">
-                                <i class="fa fa-heart"></i>
-                            </button>
-                        </div>
-                        <div class="product-details">
-                            <div class="product-top-row">
-                                <p class="product-category">Herbal</p>
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <span>4.8/5</span>
-                                </div>
-                            </div>
-                            <h3 class="product-name">NutriSlim Capsules</h3>
-                            <div class="product-bottom-row">
-                                <button class="add-to-cart-btn">
-                                    Add to cart
-                                </button>
-                                <div class="product-price">$42.00</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
             
             <!-- Pagination -->
@@ -2468,6 +2437,8 @@
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .product-price {
@@ -2478,6 +2449,49 @@
     font-family: 'Poppins', sans-serif;
     white-space: nowrap;
     transition: color 0.3s ease;
+}
+
+.product-price .price-old {
+    font-size: 18px;
+    color: #999;
+    text-decoration: line-through;
+    margin-right: 8px;
+    font-weight: 400;
+}
+
+.product-price .price-new {
+    color: #8B5CF6;
+    font-weight: 700;
+}
+
+.featured-product-card:hover .product-price .price-new {
+    color: #fff;
+}
+
+.featured-product-card .product-image-wrapper a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.featured-product-card .product-name a {
+    color: #1f2937;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.featured-product-card:hover .product-name a {
+    color: #fff;
+}
+
+.featured-product-card .product-category a {
+    color: #4b5563;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.featured-product-card:hover .product-category a {
+    color: #fff;
 }
 
 /* Hover Effects on Product Card */
