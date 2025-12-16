@@ -296,7 +296,7 @@ $quantity = $firstItem ? $firstItem->quantity : 1;
 // ✅ Add shipping rate inside product cost
 $productCostWithShipping = ($productCost * $quantity) + $shippingRate;
 
-$redirectUrl = "https://www.clearcosmetics.us/clear/Pay1paypal/buyonline.php";
+$redirectUrl = "https://www.clearcosmetics.us/clear/Payments/buyonline.php";
 $redirectUrl .= "?quantity=" . $quantity;
 $redirectUrl .= "&pg=standardPay";
 $redirectUrl .= "&product_name=Order id: " . urlencode($order->id);

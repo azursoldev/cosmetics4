@@ -43,35 +43,57 @@
 					<h2>{{ _lang('Make Your Checkout Here') }}</h2>
 
 					<!-- Checkout Form -->
-			<form id="checkout-form" method="POST" action="{{ route('checkout.store') }}">
-    @csrf
-    <div class="row">
-        <div class="col-12 mb-3">
-            <div class="form-group">
-                <label>{{ _lang('Name') }} <span>*</span></label>
-                <input type="text" name="name" placeholder="{{ _lang('Name') }}" 
-                       value="{{ auth()->check() ? auth()->user()->name : old('name') }}" required>
-                @if($errors->has('name'))
-                    <div class="invalid-feedback">{{ $errors->first('name') }}</div>
-                @endif
-            </div>
-        </div>
+					<form id="checkout-form" method="POST" action="{{ route('checkout.store') }}">
+						@csrf
+						<div class="row">
+							<div class="col-12 mb-3">
+								<div class="form-group">
+									<label>{{ _lang('Name') }} <span>*</span></label>
+									<input type="text" name="name" placeholder="{{ _lang('Name') }}"
+									       value="{{ auth()->check() ? auth()->user()->name : old('name') }}" required>
+									@if($errors->has('name'))
+										<div class="invalid-feedback">{{ $errors->first('name') }}</div>
+									@endif
+								</div>
+							</div>
 
-        <div class="col-12 mb-3">
-            <div class="form-group">
-               <!-- Hidden shipping rate field -->
-             <input type="hidden" name="selected_shipping_rate" id="selected_shipping_rate" value="0">
+							<div class="col-12 mb-3">
+								<div class="form-group">
+									<!-- Hidden shipping rate field -->
+									<input type="hidden" name="selected_shipping_rate" id="selected_shipping_rate" value="0">
 
-                <label>{{ _lang('Email Address') }} <span>*</span></label>
-                <input type="email" name="email" placeholder="{{ _lang('Email Address') }}" 
-                       value="{{ auth()->check() ? auth()->user()->email : old('email') }}" required>
-                @if($errors->has('email'))
-                    <div class="invalid-feedback">{{ $errors->first('email') }}</div>
-                @endif
-            </div>
-        </div>
-    </div>
-</form>
+									<label>{{ _lang('Email Address') }} <span>*</span></label>
+									<input type="email" name="email" placeholder="{{ _lang('Email Address') }}"
+									       value="{{ auth()->check() ? auth()->user()->email : old('email') }}" required>
+									@if($errors->has('email'))
+										<div class="invalid-feedback">{{ $errors->first('email') }}</div>
+									@endif
+								</div>
+							</div>
+
+							<div class="col-12 mb-3">
+								<div class="form-group">
+									<label>{{ _lang('Country') }}</label>
+									<input type="text" name="country" placeholder="{{ _lang('Country') }}"
+									       value="{{ old('country') }}">
+									@if($errors->has('country'))
+										<div class="invalid-feedback">{{ $errors->first('country') }}</div>
+									@endif
+								</div>
+							</div>
+
+							<div class="col-12 mb-3">
+								<div class="form-group">
+									<label>{{ _lang('Phone Number') }}</label>
+									<input type="text" name="phone" placeholder="{{ _lang('Phone Number') }}"
+									       value="{{ old('phone') }}">
+									@if($errors->has('phone'))
+										<div class="invalid-feedback">{{ $errors->first('phone') }}</div>
+									@endif
+								</div>
+							</div>
+						</div>
+					</form>
 
 					<!--/ End Form -->
 

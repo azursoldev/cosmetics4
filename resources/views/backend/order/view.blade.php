@@ -60,6 +60,7 @@
 											</strong>
 											<p>
 												{{ $order->customer_email }}<br>
+												{{ $order->customer_phone }}<br>
 												{{ $order->billing_address }}<br>
 												{{ $order->billing_state }}<br>
 												{{ $order->billing_city }}, {{ $order->billing_post_code }} <br>
