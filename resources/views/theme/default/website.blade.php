@@ -85,6 +85,58 @@
 		</div>
 	@endif
 	
+	<!-- Top Promo Bar -->
+	<div class="top-promo-bar">
+		<div class="top-promo-slider">
+			<div class="top-promo-item active">
+				<div class="top-promo-content">
+					<button class="top-promo-nav top-promo-prev" aria-label="Previous">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="15 18 9 12 15 6"></polyline>
+						</svg>
+					</button>
+					<span class="top-promo-text">Free shipping all orders on over $60</span>
+					<button class="top-promo-nav top-promo-next" aria-label="Next">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="9 18 15 12 9 6"></polyline>
+						</svg>
+					</button>
+				</div>
+			</div>
+			<div class="top-promo-item">
+				<div class="top-promo-content">
+					<button class="top-promo-nav top-promo-prev" aria-label="Previous">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="15 18 9 12 15 6"></polyline>
+						</svg>
+					</button>
+					<span class="top-promo-text">New arrivals - Shop now!</span>
+					<button class="top-promo-nav top-promo-next" aria-label="Next">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="9 18 15 12 9 6"></polyline>
+						</svg>
+					</button>
+				</div>
+			</div>
+			<div class="top-promo-item">
+				<div class="top-promo-content">
+					<button class="top-promo-nav top-promo-prev" aria-label="Previous">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="15 18 9 12 15 6"></polyline>
+						</svg>
+					</button>
+					<span class="top-promo-text">Special discount up to 50% off</span>
+					<button class="top-promo-nav top-promo-next" aria-label="Next">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="9 18 15 12 9 6"></polyline>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--/ End Top Promo Bar -->
+	
 	<!-- Header Uray Template -->
 	<header class="header">
 		<!-- Search Header -->
@@ -96,114 +148,184 @@
 		</div>
 		
 		<!-- Header Desktop -->
-		<div class="container-fluid">
-			<div class="header-desktop">
-				<div class="header-menu-desktop d-flex justify-content-between align-items-center">
-					<!-- Logo -->
-					<div class="logo-wrapper">
-						<div class="logo">
-							<a href="{{ url('') }}" class="logo-link">
-								<img src="{{ asset('public/theme/default/images/logo.png') }}" alt="Pharmez Logo" class="logo-img">
+		<div class="header-desktop">
+			
+			<!-- Div 1: Top Utility Bar (First Image Section) -->
+			<div class="header-section-1">
+				<div class="container-fluid">
+					<div class="utility-row">
+						<div class="utility-left">
+							@if(get_option('phone'))
+							<a href="tel:{{ get_option('phone') }}" class="utility-item">
+								<i class="fa fa-phone"></i>
+								<span>{{ get_option('phone') }}</span>
 							</a>
+							@endif
+							@if(get_option('email'))
+							<a href="mailto:{{ get_option('email') }}" class="utility-item">
+								<i class="fa fa-envelope"></i>
+								<span>{{ get_option('email') }}</span>
+							</a>
+							@endif
+							<a href="{{ url('/about-us') }}" class="utility-link">About Us</a>
+							<a href="{{ url('/contact') }}" class="utility-link">Contact</a>
 						</div>
-					</div>
-					
-					<!-- Main Menu -->
-					<div class="nav-menu-wrapper">
-						<div class="menu">
-							<ul>
-								<li><a href="{{ url('/') }}" class="{{ Request::is('/') ? 'menu-active' : '' }}">Home</a></li>
-								<li><a href="{{ url('/about-us') }}" class="{{ Request::is('about-us*') ? 'menu-active' : '' }}">About</a></li>
-								<li><a href="{{ url('/shop') }}" class="{{ Request::is('shop*') || Request::is('product*') ? 'menu-active' : '' }}">Shop</a>
-									<ul>
-										@foreach(App\Entity\Category\Category::where('parent_id',null)->take(8)->get() as $category)
-											<li><a href="{{ url('/shop?category='.$category->slug) }}">{{ $category->translation->name }}</a></li>
-										@endforeach
-										
-									</ul>
-								</li>
-								
-								
-							</ul>
+						<div class="utility-center">
+							<span class="utility-badge">
+								<i class="fa fa-check-circle"></i>
+								<span>Safe Payment</span>
+							</span>
+							<span class="utility-badge">
+								<i class="fa fa-check-circle"></i>
+								<span>Free Shipping</span>
+							</span>
 						</div>
-					</div>
-					
-					<!-- Header Right -->
-					<div class="header-actions">
-						<div class="header-right">
-							<ul class="list-inline">
-								<li>
-									<a href="javascript:void(0)" class="search-header1">
-										<img src="{{ asset('public/theme/default/images/header-search.png') }}" alt="Search" class="header-icon">
-									</a>
-								</li>
-								<li>
-									<a href="#" class="cart-index">
-										<img src="{{ asset('public/theme/default/images/header-cart.png') }}" alt="Cart" class="header-icon">
-										<div class="number-cart">{{ \Cart::getTotalQuantity() }}</div>
-									</a>
-                                    <div class="widget_shopping_cart" id="mini-cart">
-                                        @include('theme.default.components.mini-cart')
-                                    </div>
-								</li>
-								<li>
-									<a href="{{ url('/sign_in') }}" class="user-icon">
-										<img src="{{ asset('public/theme/default/images/header-admin.png') }}" alt="User" class="header-icon">
-									</a>
-								</li>
-								{{-- <li>
-									<a href="{{ url('/contact') }}" class="btn-contact">Contact Us</a>
-								</li> --}}
-								<li>
-									<div class="language-selector">
-										<a href="#" class="lang-btn" id="selectLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<img src="{{ asset('public/theme/default/images/header-flag1.png') }}" alt="Flag" class="flag-icon-img">
-											<span class="lang-text">EN</span>
-											<img src="{{ asset('public/theme/default/images/header-dropdown.png') }}" alt="Dropdown" class="dropdown-icon-img">
-										</a>
-										<div class="dropdown-menu" aria-labelledby="selectLanguage">
-											@foreach( get_language_list() as $language )
-												<a class="dropdown-item" href="{{ url('select_language/'.$language) }}">{{ $language }}</a>
-											@endforeach
-										</div>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-					
-					<!-- Introduce Sidebar -->
-					{{-- <div class="introduce">
-						<div class="content-introduce">
-							<h3>follow instagram</h3>
-							<p>@Cosmetic_beauty</p>
-							<div class="img-controduce">
-								<img src="{{ asset('public/theme/default/images/introduce.jpg') }}" alt="">
-								<img src="{{ asset('public/theme/default/images/introduce1.jpg') }}" alt="">
-								<img src="{{ asset('public/theme/default/images/introduce2.jpg') }}" alt="">
-								<img src="{{ asset('public/theme/default/images/introduce3.jpg') }}" alt="">
-								<img src="{{ asset('public/theme/default/images/introduce4.jpg') }}" alt="">
-								<img src="{{ asset('public/theme/default/images/introduce5.jpg') }}" alt="">
+						<div class="utility-right">
+							<div class="language-selector">
+								<a href="#" class="lang-btn" id="selectLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<span class="lang-text">{{ get_language() }}</span>
+									<i class="fa fa-chevron-down"></i>
+								</a>
+								<div class="dropdown-menu" aria-labelledby="selectLanguage">
+									@foreach( get_language_list() as $language )
+										<a class="dropdown-item" href="{{ url('select_language/'.$language) }}">{{ $language }}</a>
+									@endforeach
+								</div>
 							</div>
-							<h4>newsletter</h4>
-							<p>Subscribe to our newsletter</p>
-							<form action="{{ url('/newsletter/subscribe') }}" method="POST">
-								@csrf
-								<input type="email" name="email" placeholder="Email" required>
-                                <button class="bt" type="submit"><i class="fa fa-angle-right"></i></button>
-							</form>
-							<div class="icon-introduce">
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
+							<div class="currency-selector">
+								<a href="#" class="currency-btn" id="selectCurrency" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<span class="currency-text">{{ session('currency') ? session('currency') : currency() }}</span>
+									<i class="fa fa-chevron-down"></i>
+								</a>
+								<div class="dropdown-menu" aria-labelledby="selectCurrency">
+									@foreach(\App\Currency::all() as $curr)
+										<a class="dropdown-item" href="{{ url('?currency='.$curr->name) }}">{{ $curr->name }}</a>
+									@endforeach
+								</div>
 							</div>
-							<span class="lnr lnr-cross close-introduce"></span>
 						</div>
-					</div> --}}
+					</div>
 				</div>
 			</div>
+			
+			<!-- Div 2: Main Header Row (Second Image Section) -->
+			<div class="header-section-2">
+				<div class="container-fluid">
+					<div class="header-main-row">
+						<!-- Logo -->
+						<div class="header-logo">
+							<a href="{{ url('') }}" class="bumedi-logo">
+								<img src="{{ asset('public/theme/default/images/bumedi-logo.svg') }}" alt="bumëdi" class="logo-img-bumedi">
+							</a>
+						</div>
+						
+						<!-- Search Bar -->
+						<div class="header-search-wrapper">
+							<form action="{{ url('/shop') }}" method="GET" class="header-search-form">
+								<div class="search-input-wrapper">
+									<i class="fa fa-search search-icon"></i>
+									<input type="text" name="search" class="header-search-input" placeholder="Search everything at bumedi store...">
+								</div>
+								<button type="submit" class="search-submit-btn">Search</button>
+							</form>
+						</div>
+						
+						<!-- User Actions -->
+						<div class="header-actions">
+							<div class="action-icons">
+								<a href="{{ url('/wish_list') }}" class="action-icon" title="Wishlist">
+									<i class="fa fa-heart-o"></i>
+								</a>
+								<a href="javascript:void(0)" class="action-icon" title="Compare">
+									<i class="fa fa-exchange"></i>
+								</a>
+								<div class="action-icon-user-wrapper">
+									@if(Auth::check())
+									<a href="{{ url('/account') }}" class="action-icon" title="Account">
+										<i class="fa fa-user"></i>
+									</a>
+									@else
+									<a href="{{ url('/sign_in') }}" class="action-icon" title="Sign In">
+										<i class="fa fa-user"></i>
+									</a>
+									@endif
+									<div class="user-link-text">
+										<div class="sign-in-text">Sign In</div>
+										<div class="account-text">Account</div>
+									</div>
+								</div>
+							</div>
+							<div class="header-cart-section">
+								<a href="#" class="cart-icon-wrapper cart-index">
+									<i class="fa fa-shopping-cart"></i>
+									<span class="cart-count">{{ \Cart::getTotalQuantity() }}</span>
+								</a>
+								<div class="cart-info">
+									<div class="cart-total">
+										<span class="cart-amount">{{ show_price(\Cart::getTotal()) }}</span>
+										<span class="cart-label">Cart Total</span>
+									</div>
+								</div>
+								<div class="widget_shopping_cart" id="mini-cart">
+									@include('theme.default.components.mini-cart')
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Div 3: Navigation Menu (Third Image Section) -->
+			<div class="header-section-3">
+				<div class="container-fluid">
+					<nav class="main-navigation">
+						<ul class="nav-menu">
+							<li class="nav-item has-dropdown">
+								<a href="{{ url('/') }}" class="nav-link">Home <i class="fa fa-chevron-down"></i></a>
+							</li>
+							<li class="nav-item has-dropdown">
+								<a href="{{ url('/shop') }}" class="nav-link">Shop <i class="fa fa-chevron-down"></i></a>
+								<ul class="dropdown-menu">
+									@foreach(App\Entity\Category\Category::where('parent_id',null)->take(10)->get() as $category)
+										<li><a href="{{ url('/shop?category='.$category->slug) }}">{{ $category->translation->name }}</a></li>
+									@endforeach
+								</ul>
+							</li>
+							<li class="nav-item">
+								<a href="{{ url('/shop?category=medication') }}" class="nav-link">Medication</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ url('/shop?category=allergies') }}" class="nav-link">Allergies</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ url('/contact') }}" class="nav-link">Contact</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ url('/blog') }}" class="nav-link">Blog</a>
+							</li>
+							<li class="nav-item has-dropdown">
+								<a href="{{ url('/shop') }}" class="nav-link nav-link-blue">Exclusive Products <i class="fa fa-chevron-down"></i></a>
+							</li>
+							<li class="nav-item has-dropdown">
+								<a href="{{ url('/campaigns') }}" class="nav-link nav-link-orange">Campaigns <i class="fa fa-chevron-down"></i></a>
+							</li>
+						</ul>
+						<div class="nav-actions">
+							<a href="{{ url('/order-tracking') }}" class="nav-action-link">
+								<i class="fa fa-cube"></i>
+								<span>Order Tracking</span>
+							</a>
+							<a href="{{ url('/faq') }}" class="nav-action-link">
+								<i class="fa fa-map-marker"></i>
+								<span>FAQ</span>
+							</a>
+						</div>
+					</nav>
+				</div>
+			</div>
+			
 		</div>
+		<!--/ End Header Desktop -->
 		
 		<!-- Header Mobile -->
 		<div class="container-fluid">
@@ -215,8 +337,8 @@
 						</button>
 					</div>
 					<div class="logo">
-						<a href="{{ url('') }}">
-							<img src="{{ get_logo() }}" alt="logo" style="max-height: 50px;">
+						<a href="{{ url('') }}" class="bumedi-logo">
+							<img src="{{ asset('public/theme/default/images/bumedi-logo.svg') }}" alt="bumëdi" class="logo-img-bumedi">
 						</a>
 					</div>
 					<div>
@@ -361,6 +483,37 @@
 	<!-- Uray Template Custom JS -->
 	<script>
 		$(document).ready(function() {
+			// Top Promo Bar Carousel
+			let currentPromoIndex = 0;
+			const promoItems = $('.top-promo-item');
+			const totalItems = promoItems.length;
+			
+			// Function to update promo text
+			function updatePromoText(index) {
+				promoItems.removeClass('active');
+				promoItems.eq(index).addClass('active');
+			}
+			
+			// Next button
+			$('.top-promo-next').click(function(e) {
+				e.preventDefault();
+				currentPromoIndex = (currentPromoIndex + 1) % totalItems;
+				updatePromoText(currentPromoIndex);
+			});
+			
+			// Previous button
+			$('.top-promo-prev').click(function(e) {
+				e.preventDefault();
+				currentPromoIndex = (currentPromoIndex - 1 + totalItems) % totalItems;
+				updatePromoText(currentPromoIndex);
+			});
+			
+			// Auto-rotate promo messages every 5 seconds
+			setInterval(function() {
+				currentPromoIndex = (currentPromoIndex + 1) % totalItems;
+				updatePromoText(currentPromoIndex);
+			}, 5000);
+			
 			// Owl Carousel for brands
 			$('.brand-slider').owlCarousel({
 				loop: true,

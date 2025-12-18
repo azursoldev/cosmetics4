@@ -54,61 +54,89 @@
 	}
 </style>
 <div class="content-homepage">
-    <!-- Hero Banner Section with Image Cards -->
-    <div class="hero-banner-pharmez">
+    <!-- Hero Banner Section - 2 Divs Layout -->
+    <div class="hero-section-wrapper">
         <div class="container">
-            <!-- Top Section: Text Content and Client Stats -->
-            <div class="row align-items-center hero-top-section">
-                <div class="col-lg-7 col-md-12 hero-content-left">
-                    <div class="hero-tags">
-                        <span>• Health</span>
-                        <span>• Trust</span>
-                        <span>• Online</span>
+            <div class="row hero-row justify-content-center">
+                <!-- Div 1: Left Sidebar -->
+                <div class="hero-sidebar-wrapper">
+                    <div class="hero-sidebar-box">
+                        <ul class="sidebar-categories-list">
+                            @php
+                                $categories = [
+                                    ['name' => 'Allergies', 'icon' => 'fa-flask', 'slug' => 'allergies'],
+                                    ['name' => 'Cosmetics', 'icon' => 'fa-paint-brush', 'slug' => 'cosmetics'],
+                                    ['name' => 'Cough, Cold, Fever', 'icon' => 'fa-medkit', 'slug' => 'cough-cold-fever'],
+                                    ['name' => 'Dietary', 'icon' => 'fa-capsules', 'slug' => 'dietary'],
+                                    ['name' => 'Health', 'icon' => 'fa-briefcase-medical', 'slug' => 'health'],
+                                    ['name' => 'Medication', 'icon' => 'fa-syringe', 'slug' => 'medication'],
+                                    ['name' => 'Medicine', 'icon' => 'fa-pills', 'slug' => 'medicine'],
+                                    ['name' => 'Mouth & Teeth', 'icon' => 'fa-tooth', 'slug' => 'mouth-teeth'],
+                                    ['name' => 'Nutrition', 'icon' => 'fa-file-medical', 'slug' => 'nutrition'],
+                                    ['name' => 'Pollen Sneeze', 'icon' => 'fa-smile', 'slug' => 'pollen-sneeze'],
+                                    ['name' => 'Protection', 'icon' => 'fa-shield-alt', 'slug' => 'protection']
+                                ];
+                            @endphp
+                            @foreach($categories as $category)
+                                <li class="sidebar-category-item">
+                                    <a href="{{ url('/shop?category='.$category['slug']) }}" class="sidebar-category-link">
+                                        <i class="fa {{ $category['icon'] }} sidebar-category-icon"></i>
+                                        <span class="sidebar-category-name">{{ $category['name'] }}</span>
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
-                    <h1 class="hero-title">Instant Pharmacy<br>Access For You</h1>
-                  
                 </div>
-                <div class="col-lg-5 col-md-12 hero-content-right">
-                    <div class="hero-clients">
-                        <div class="client-avatars">
-                            <img src="{{ asset('public/theme/default/images/client-img1.jpg') }}" alt="Client" class="avatar-circle">
-                            <img src="{{ asset('public/theme/default/images/client-img2.jpg') }}" alt="Client" class="avatar-circle">
-                            <img src="{{ asset('public/theme/default/images/client-img3.jpg') }}" alt="Client" class="avatar-circle">
-                            <img src="{{ asset('public/theme/default/images/client-img4.jpg') }}" alt="Client" class="avatar-circle">
-                        </div>
-                        <div class="client-stats">
-                            <h2 class="client-count">4k+</h2>
-                            <p class="client-text">Happy clients</p>
-                        </div>
-                    </div>
-                    <div class="hero-botom">
-                        <p class="hero-description">Order prescription and over-the-counter medicines online with confidence.</p>
-                        <div class="hero-buttons">
-                            <a href="{{ url('/shop') }}" class="btn-shop-now">Shop Now</a>
-                            {{-- <a href="{{ url('/upload-prescription') }}" class="btn-upload-prescription">
-                                <i class="fa fa-arrow-up"></i>
-                                Upload Prescription
-                            </a> --}}
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
 
-            <!-- Bottom Section: Image Cards -->
-            <div class="row hero-bottom-section">
-                <div class="col-lg-6 col-md-6 col-12 mb-4 mb-lg-0">
-                    <div class="banner-card banner-card-left">
-                        <img src="{{ asset('public/theme/default/images/banner-img1.jpg') }}" alt="Trusted Drug Store" class="banner-card-img">
-                        <div class="trusted-badge">
-                            <i class="fa fa-check-circle"></i>
-                            <span>Trusted Drug Store</span>
+                <!-- Div 2: Right Hero Banner -->
+                <div class="hero-banner-wrapper">
+                    <div class="hero-banner-box">
+                        <div class="hero-banner-carousel">
+                            <!-- Slide 1: Doctor Woman -->
+                            <div class="hero-slide active">
+                                <div class="banner-content-left">
+                                    <div class="banner-label">Exclusive Discounts</div>
+                                    <h1 class="banner-heading">Magical Moments Awaits You at Every Corner</h1>
+                                    <p class="banner-description">We Turn Ordinary Days Into Magical Adventures with Our Exciting Collection of Toys and Stylish Kidswear</p>
+                                    <a href="{{ url('/shop') }}" class="banner-button">View Products</a>
+                                </div>
+                                <div class="banner-image-right">
+                                    <img src="{{ asset('public/theme/default/images/doctor-woman.png') }}" alt="Doctor" class="banner-doctor-img">
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 2: Vaccine Vial -->
+                            <div class="hero-slide">
+                                <div class="banner-content-left">
+                                    <div class="banner-label">Health & Safety</div>
+                                    <h1 class="banner-heading">Trusted Medical Solutions For Your Family</h1>
+                                    <p class="banner-description">Get authentic medications and health products delivered safely to your doorstep with professional care.</p>
+                                    <a href="{{ url('/shop') }}" class="banner-button">Shop Now</a>
+                                </div>
+                                <div class="banner-image-right">
+                                    <img src="{{ asset('public/theme/default/images/vaccine-vial.png') }}" alt="Vaccine" class="banner-doctor-img">
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 3: Pills & Capsules -->
+                            <div class="hero-slide">
+                                <div class="banner-content-left">
+                                    <div class="banner-label">Quality Medications</div>
+                                    <h1 class="banner-heading">Your Health Is Our Priority</h1>
+                                    <p class="banner-description">Browse our extensive collection of prescription and over-the-counter medications with confidence.</p>
+                                    <a href="{{ url('/shop') }}" class="banner-button">Explore Products</a>
+                                </div>
+                                <div class="banner-image-right">
+                                    <img src="{{ asset('public/theme/default/images/pills-capsules.png') }}" alt="Medications" class="banner-doctor-img">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-12">
-                    <div class="banner-card banner-card-right">
-                        <img src="{{ asset('public/theme/default/images/banner-img2.jpg') }}" alt="Professional Pharmacist" class="banner-card-img">
+                        <div class="banner-pagination-dots">
+                            <span class="dot-item active" data-slide="0"></span>
+                            <span class="dot-item" data-slide="1"></span>
+                            <span class="dot-item" data-slide="2"></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -762,6 +790,244 @@
 </div> --}}
 
 <style>
+/* Hero Section - 2 Divs Layout */
+.hero-section-wrapper {
+    background: #fff;
+    padding: 30px 0;
+    margin-bottom: 40px;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.hero-section-wrapper .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.hero-row {
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Div 1: Left Sidebar - Exact Dimensions */
+.hero-sidebar-wrapper {
+    flex-shrink: 0;
+    max-width: 323.78px;
+}
+
+.hero-sidebar-box {
+    width: 323.78px;
+    max-width: 100%;
+    height: 587.5px;
+    background: #fff;
+    border: 2px solid #b3d9ff;
+    border-radius: 8px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.sidebar-categories-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.sidebar-category-item {
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.sidebar-category-item:last-child {
+    border-bottom: none;
+}
+
+.sidebar-category-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.sidebar-category-link:hover {
+    background: #f8f9fa;
+    color: #2563eb;
+}
+
+.sidebar-category-icon {
+    width: 24px;
+    font-size: 18px;
+    color: #2563eb;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.sidebar-category-name {
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Div 2: Right Hero Banner - Exact Dimensions */
+.hero-banner-wrapper {
+    flex-shrink: 1;
+    min-width: 0;
+    max-width: 1031.22px;
+}
+
+.hero-banner-box {
+    width: 1031.22px;
+    max-width: 100%;
+    height: 607.5px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 50px 40px;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.hero-banner-carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out;
+    padding: 0;
+}
+
+.hero-slide.active {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+}
+
+.banner-content-left {
+    position: relative;
+    z-index: 2;
+    max-width: 50%;
+    padding-right: 20px;
+}
+
+.banner-label {
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 12px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+}
+
+.banner-heading {
+    font-size: 48px;
+    font-weight: 700;
+    color: #15803d;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.banner-description {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 35px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.banner-button {
+    display: inline-block;
+    padding: 14px 35px;
+    background: #ff6b35;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s;
+    font-family: 'Poppins', sans-serif;
+    text-transform: capitalize;
+}
+
+.banner-button:hover {
+    background: #ff5722;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+}
+
+.banner-image-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.banner-doctor-img {
+    max-width: 100%;
+    height: auto;
+    max-height: 607.5px;
+    object-fit: contain;
+    position: relative;
+}
+
+.banner-pagination-dots {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 3;
+}
+
+.dot-item {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ddd;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dot-item.active {
+    background: #2563eb;
+    width: 30px;
+    border-radius: 5px;
+}
+
 /* Hero Banner Pharmez Styles */
 .hero-banner-pharmez {
     background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
@@ -998,6 +1264,53 @@
         display: none;
     }
     
+    .hero-section-wrapper .container {
+        padding: 0 15px;
+    }
+    
+    .hero-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .hero-sidebar-wrapper {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    .hero-sidebar-box {
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+    }
+    
+    .hero-banner-wrapper {
+        width: 100%;
+    }
+    
+    .hero-banner-box {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        min-height: 400px;
+    }
+    
+    .banner-content-left {
+        max-width: 100%;
+        padding-right: 0;
+    }
+    
+    .banner-heading {
+        font-size: 32px;
+    }
+    
+    .banner-image-right {
+        position: relative;
+        width: 100%;
+        margin-top: 20px;
+        height: auto;
+    }
+    
     .hero-banner-pharmez {
         padding: 80px 0 60px 0;
     }
@@ -1028,6 +1341,19 @@
 }
 
 @media (max-width: 767px) {
+    .banner-heading {
+        font-size: 24px;
+    }
+    
+    .banner-description {
+        font-size: 14px;
+    }
+    
+    .hero-banner-box {
+        padding: 30px 20px;
+        min-height: 350px;
+    }
+    
     .hero-title {
         font-size: 32px;
     }
@@ -3823,6 +4149,44 @@
     <script src="{{ asset('public/theme/default/js/cart.js?v=1.1') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Hero Banner Carousel
+            const heroSlides = document.querySelectorAll('.hero-slide');
+            const heroDots = document.querySelectorAll('.banner-pagination-dots .dot-item');
+            let currentHeroSlide = 0;
+            const totalHeroSlides = heroSlides.length;
+            
+            function showHeroSlide(index) {
+                heroSlides.forEach((slide, i) => {
+                    slide.classList.remove('active');
+                    if (i === index) {
+                        slide.classList.add('active');
+                    }
+                });
+                
+                heroDots.forEach((dot, i) => {
+                    dot.classList.remove('active');
+                    if (i === index) {
+                        dot.classList.add('active');
+                    }
+                });
+            }
+            
+            // Dot navigation
+            heroDots.forEach((dot, index) => {
+                dot.addEventListener('click', function() {
+                    currentHeroSlide = index;
+                    showHeroSlide(currentHeroSlide);
+                });
+            });
+            
+            // Auto-rotate hero banner every 5 seconds
+            if (totalHeroSlides > 1) {
+                setInterval(function() {
+                    currentHeroSlide = (currentHeroSlide + 1) % totalHeroSlides;
+                    showHeroSlide(currentHeroSlide);
+                }, 5000);
+            }
+            
             const track = document.querySelector('.products-carousel-track');
             if (!track) return;
             
