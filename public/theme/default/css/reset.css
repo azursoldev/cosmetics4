@@ -3,7 +3,7 @@
 # Normalize
 --------------------------------------------------------------*/
 html {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Fredoka', sans-serif;
 	-moz-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%;
@@ -164,7 +164,7 @@ select,
 optgroup,
 textarea {
 	color: #424646;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Fredoka', sans-serif;
 	font-weight:400;
 	font-size: 14px;
 	line-height: 24px;
@@ -194,7 +194,7 @@ address {
 }
 pre {
 	background: #eee;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Fredoka', sans-serif;
 	font-size: 15px;
 	font-size: 0.9375rem;
 	line-height: 1.6;
@@ -204,7 +204,7 @@ pre {
 	padding: 1.6em;
 }
 code, kbd, tt, var {
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Fredoka', sans-serif;
 	font-size: 15px;
 	font-size: 0.9375rem;
 }
