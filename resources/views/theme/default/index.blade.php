@@ -2,6 +2,17 @@
 
 @section('content')
 <style>
+/* Font Awesome Icons Fix - Ensure all icons display */
+.fa, .fas, .far, .fal, .fab {
+    font-family: 'FontAwesome' !important;
+    display: inline-block;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 	a.carousel-control-prev {
     position: absolute !important;
     left: -34px !IMPORTANT;
@@ -94,6 +105,14 @@
                 <div class="hero-banner-wrapper">
                     <div class="hero-banner-box">
                         <div class="hero-banner-carousel">
+                            <!-- Navigation Arrows -->
+                            <button class="banner-nav-arrow banner-nav-prev" aria-label="Previous slide">
+                                <i class="fa fa-chevron-left"></i>
+                            </button>
+                            <button class="banner-nav-arrow banner-nav-next" aria-label="Next slide">
+                                <i class="fa fa-chevron-right"></i>
+                            </button>
+                            
                             <!-- Slide 1: Banner 01 -->
                             <div class="hero-slide active" style="background-image: url('{{ asset('public/theme/default/images/banner-01.jpg') }}');">
                                 <div class="banner-content-overlay">
@@ -101,29 +120,29 @@
                                     <h1 class="banner-heading">Magical Moments Awaits You at Every Corner</h1>
                                     <p class="banner-description">We Turn Ordinary Days Into Magical Adventures with Our Exciting Collection of Toys and Stylish Kidswear</p>
                                     <a href="{{ url('/shop') }}" class="banner-button">View Products</a>
-                                </div>
-                            </div>
-                            
+                        </div>
+                    </div>
+                    
                             <!-- Slide 2: Banner 05 -->
                             <div class="hero-slide" style="background-image: url('{{ asset('public/theme/default/images/banner-05.jpg') }}');">
                                 <div class="banner-content-overlay">
-                                    <div class="banner-label">Health & Safety</div>
-                                    <h1 class="banner-heading">Trusted Medical Solutions For Your Family</h1>
-                                    <p class="banner-description">Get authentic medications and health products delivered safely to your doorstep with professional care.</p>
-                                    <a href="{{ url('/shop') }}" class="banner-button">Shop Now</a>
-                                </div>
-                            </div>
-                            
+                                    <div class="banner-label">Exclusive Discounts</div>
+                                    <h1 class="banner-heading">Cheerful Finds for Little Dreamer's Adventure and Fun</h1>
+                                    <p class="banner-description">Your Gateway to a World of Fun and Creativity – Explore Our Store for the Best in Toys, Games, and Apparel for Kids</p>
+                                    <a href="{{ url('/shop') }}" class="banner-button">View Products</a>
+                </div>
+            </div>
+
                             <!-- Slide 3: Banner 06 -->
                             <div class="hero-slide" style="background-image: url('{{ asset('public/theme/default/images/banner-06.jpg') }}');">
                                 <div class="banner-content-overlay">
-                                    <div class="banner-label">Quality Medications</div>
-                                    <h1 class="banner-heading">Your Health Is Our Priority</h1>
-                                    <p class="banner-description">Browse our extensive collection of prescription and over-the-counter medications with confidence.</p>
-                                    <a href="{{ url('/shop') }}" class="banner-button">Explore Products</a>
-                                </div>
-                            </div>
+                                    <div class="banner-label">Exclusive Discounts</div>
+                                    <h1 class="banner-heading">Creating Smiles and Precious Memories, One Toy at a Time</h1>
+                                    <p class="banner-description">Transforming Ordinary Days into Magical Adventures with Our Exciting Collection of Toys and Stylish Kids' Clothing</p>
+                                    <a href="{{ url('/shop') }}" class="banner-button">View Products</a>
                         </div>
+                    </div>
+                </div>
                         <div class="banner-pagination-dots">
                             <span class="dot-item active" data-slide="0"></span>
                             <span class="dot-item" data-slide="1"></span>
@@ -148,7 +167,7 @@
                         <div class="benefit-content">
                             <h3 class="benefit-title">Free Delivery</h3>
                             <p class="benefit-description">Quisque rhoncus orci neque, nec au nisi condimentum sit amet.</p>
-                            <a href="#" class="benefit-link">View More →</a>
+                            <a href="#" class="benefit-link">View More <span class="arrow-icon">→</span></a>
                         </div>
                     </div>
                 </div>
@@ -160,7 +179,7 @@
                         <div class="benefit-content">
                             <h3 class="benefit-title">Money Return</h3>
                             <p class="benefit-description">Quisque rhoncus orci neque, nec au nisi condimentum sit amet.</p>
-                            <a href="#" class="benefit-link">View More →</a>
+                            <a href="#" class="benefit-link">View More <span class="arrow-icon">→</span></a>
                         </div>
                     </div>
                 </div>
@@ -172,7 +191,7 @@
                         <div class="benefit-content">
                             <h3 class="benefit-title">Member Discount</h3>
                             <p class="benefit-description">Quisque rhoncus orci neque, nec au nisi condimentum sit amet.</p>
-                            <a href="#" class="benefit-link">View More →</a>
+                            <a href="#" class="benefit-link">View More <span class="arrow-icon">→</span></a>
                         </div>
                     </div>
                 </div>
@@ -184,7 +203,7 @@
                         <div class="benefit-content">
                             <h3 class="benefit-title">Online Support 24/7</h3>
                             <p class="benefit-description">Quisque rhoncus orci neque, nec au nisi condimentum sit amet.</p>
-                            <a href="#" class="benefit-link">View More →</a>
+                            <a href="#" class="benefit-link">View More <span class="arrow-icon">→</span></a>
                         </div>
                     </div>
                 </div>
@@ -198,7 +217,7 @@
         <div class="container">
             <div class="section-header-popular">
                 <h2 class="section-title-popular">Most popular products</h2>
-                <a href="{{ url('/shop') }}" class="view-more-link">View More →</a>
+                <a href="{{ url('/shop') }}" class="view-more-link">View More <span class="arrow-icon">→</span></a>
             </div>
             <div class="products-carousel-wrapper">
                 <div class="products-carousel-track" id="popular-products-carousel">
@@ -230,7 +249,7 @@
                                     <button class="wishlist-btn" type="button">
                                         <i class="fa fa-heart"></i>
                                     </button>
-                                </div>
+                            </div>
                                 <div class="product-rating">
                                     @php
                                         $reviews_count = $product->reviews->count();
@@ -248,9 +267,9 @@
                                         @for($i = $full_stars + ($half_star ? 1 : 0); $i < 5; $i++)
                                             <i class="fa fa-star-o"></i>
                                         @endfor
-                                    </div>
+                        </div>
                                     <span class="rating-number">{{ number_format($avg_rating, 2) }}</span>
-                                </div>
+                    </div>
                                 <h3 class="product-name">
                                     <a href="{{ url('/product/'.$product->slug) }}">{{ $product->translation->name ?? $product->name }}</a>
                                 </h3>
@@ -261,14 +280,14 @@
                                     @else
                                         <span class="current-price">{{ show_price($product->price) }}</span>
                                     @endif
-                                </div>
+                </div>
                                 <button class="add-to-cart-btn" type="button" data-product-id="{{ $product->id }}">
                                     Add to cart
                                 </button>
                             </div>
                         </div>
                     @endforeach
-                </div>
+                    </div>
                 <div class="carousel-dots">
                     <span class="dot active" data-slide="0"></span>
                     <span class="dot" data-slide="1"></span>
@@ -276,9 +295,9 @@
                     <span class="dot" data-slide="3"></span>
                     <span class="dot" data-slide="4"></span>
                 </div>
-            </div>
-        </div>
-    </div>
+                            </div>
+                        </div>
+                    </div>
     <!--end Popular Products Section-->
 
     <!-- Promotional Banners Section -->
@@ -291,20 +310,20 @@
                         <div class="site-banner-content wrap-element items-center justify-start">
                             <div class="site-banner-inner w-70 md-w-80 lg-w-70 custom-color" style="--custom-color: #723c48;">
                                 <div class="site-banner-content-header">
-                                    <h4 class="entry-subtitle text-13">Exclusive Discount</h4>
+                                    <h4 class="entry-subtitle text-13 exclusive-discount-label">Exclusive Discount</h4>
                                     <h2 class="entry-title text-24 md:text-28 font-semibold tracking-tight custom-color" style="--custom-color: #723c48;">Playful Treasures for Happy Kids</h2>
-                                </div>
+                </div>
                                 <div class="site-banner-content-body">
                                     <div class="entry-excerpt text-14">
                                         <p>Where Every Toy Sparks Creativity and Every Outfit Brings Smiles</p>
-                                    </div>
-                                    <a href="{{ url('/shop') }}" class="link-text current-color">View More <i class="fa fa-arrow-right"></i></a>
-                                </div>
                             </div>
+                                    <a href="{{ url('/shop') }}" class="link-text current-color">View More <span class="arrow-icon">→</span></a>
                         </div>
-                        <a href="{{ url('/shop') }}" class="wrap-element site-banner-link"></a>
                     </div>
                 </div>
+                        <a href="{{ url('/shop') }}" class="wrap-element site-banner-link"></a>
+            </div>
+        </div>
                 
                 <!-- Banner 2 -->
                 <div class="promotional-banner-item">
@@ -312,14 +331,14 @@
                         <div class="site-banner-content wrap-element items-center justify-start">
                             <div class="site-banner-inner w-70 md-w-80 lg-w-70 custom-color" style="--custom-color: #59466d;">
                                 <div class="site-banner-content-header">
-                                    <h4 class="entry-subtitle text-13">Exclusive Discount</h4>
+                                    <h4 class="entry-subtitle text-13 exclusive-discount-label">Exclusive Discount</h4>
                                     <h2 class="entry-title text-24 md:text-28 font-semibold tracking-tight custom-color" style="--custom-color: #59466d;">Cheerful Finds for the Little Dreamer</h2>
-                                </div>
+    </div>
                                 <div class="site-banner-content-body">
                                     <div class="entry-excerpt text-14">
                                         <p>Explore a World of Playful Wonders and Delightful Finds for Every Child</p>
                                     </div>
-                                    <a href="{{ url('/shop') }}" class="link-text current-color">View More <i class="fa fa-arrow-right"></i></a>
+                                    <a href="{{ url('/shop') }}" class="link-text current-color">View More <span class="arrow-icon">→</span></a>
                                 </div>
                             </div>
                         </div>
@@ -333,14 +352,14 @@
                         <div class="site-banner-content wrap-element items-center justify-start">
                             <div class="site-banner-inner w-70 md-w-80 lg-w-70 custom-color" style="--custom-color: #1e5d63;">
                                 <div class="site-banner-content-header">
-                                    <h4 class="entry-subtitle text-13">Exclusive Discount</h4>
+                                    <h4 class="entry-subtitle text-13 exclusive-discount-label">Exclusive Discount</h4>
                                     <h2 class="entry-title text-24 md:text-28 font-semibold tracking-tight custom-color" style="--custom-color: #1e5d63;">Where Fun and Style Meet</h2>
-                                </div>
+            </div>
                                 <div class="site-banner-content-body">
                                     <div class="entry-excerpt text-14">
                                         <p>Discover the Perfect Mix of Fun, Learning, and Style for Your Little Ones</p>
                                     </div>
-                                    <a href="{{ url('/shop') }}" class="link-text current-color">View More <i class="fa fa-arrow-right"></i></a>
+                                    <a href="{{ url('/shop') }}" class="link-text current-color">View More <span class="arrow-icon">→</span></a>
                                 </div>
                             </div>
                         </div>
@@ -359,10 +378,10 @@
                 <div class="cashback-content">
                     <div class="cashback-text-wrapper">
                         <h2 class="cashback-title">RETURN CASH BACK</h2>
-                        <p class="cashback-description">Earn 5% cash back on Bumedi.com See if you're pre-approved with no credit risk.</p>
-                    </div>
+                        <p class="cashback-description"><span class="cashback-earn-text">Earn 5% cash back on Bumedi.com</span> <span class="cashback-preapproved-text">See if you're pre-approved with no credit risk.</span></p>
+                        <a href="{{ url('/shop') }}" class="cashback-button">Discover More</a>
+            </div>
                 </div>
-                <a href="{{ url('/shop') }}" class="cashback-button">Discover More</a>
             </div>
         </div>
     </div>
@@ -380,12 +399,12 @@
                             ->with(['reviews', 'files', 'translation'])
                             ->take(3)
                             ->get();
-                    @endphp
+                @endphp
                     @foreach($left_products as $product)
                         <div class="mixed-product-card-item">
                             <div class="product-card-horizontal">
                                 <div class="product-image-wrapper-horizontal">
-                                    <a href="{{ url('/product/'.$product->slug) }}">
+                            <a href="{{ url('/product/'.$product->slug) }}">
                                         @php
                                             $image_files = ['1-56-500x500.jpg', '1-62-500x500.jpg', '1-65-500x500.jpg'];
                                             $image_index = $loop->index % count($image_files);
@@ -401,7 +420,7 @@
                                     @endif
                                 </div>
                                 <div class="product-content-horizontal">
-                                    <div class="product-rating">
+                                <div class="product-rating">
                                         @php
                                             $reviews_count = $product->reviews->count();
                                             $avg_rating = $reviews_count > 0 ? $product->reviews->avg('rating') : 2.00;
@@ -410,7 +429,7 @@
                                         @endphp
                                         <div class="stars">
                                             @for($i = 0; $i < $full_stars; $i++)
-                                                <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
                                             @endfor
                                             @if($half_star)
                                                 <i class="fa fa-star-half-o"></i>
@@ -418,29 +437,29 @@
                                             @for($i = $full_stars + ($half_star ? 1 : 0); $i < 5; $i++)
                                                 <i class="fa fa-star-o"></i>
                                             @endfor
-                                        </div>
+                                </div>
                                         <span class="rating-number">{{ number_format($avg_rating, 2) }}</span>
-                                    </div>
+                            </div>
                                     <h3 class="product-name-horizontal">
                                         <a href="{{ url('/product/'.$product->slug) }}">{{ $product->translation->name ?? $product->name }}</a>
-                                    </h3>
+                            </h3>
                                     <div class="product-price-horizontal">
                                         @if($product->discount_price && $product->price)
                                             <span class="current-price">{{ show_price($product->discount_price) }}</span>
                                             <span class="original-price">{{ show_price($product->price) }}</span>
-                                        @else
+                                @else
                                             <span class="current-price">{{ show_price($product->price) }}</span>
-                                        @endif
-                                    </div>
+                                    @endif
+                                </div>
                                     <button class="add-to-cart-btn-horizontal" type="button" data-product-id="{{ $product->id }}">
                                         Add to cart
                                     </button>
-                                </div>
-                            </div>
                         </div>
-                    @endforeach
+                    </div>
                 </div>
-                
+                @endforeach
+            </div>
+            
                 <!-- Middle Column - Promotional Banners -->
                 <div class="mixed-column banners-column">
                     <!-- Banner 1 -->
@@ -449,37 +468,37 @@
                             <div class="site-banner-content wrap-element items-center justify-start">
                                 <div class="site-banner-inner w-70 md-w-80 lg-w-70 custom-color" style="--custom-color: #1e5d63;">
                                     <div class="site-banner-content-header">
-                                        <h4 class="entry-subtitle text-13">Exclusive Discount</h4>
+                                        <h4 class="entry-subtitle text-13 exclusive-discount-label">Exclusive Discount</h4>
                                         <h2 class="entry-title text-24 md:text-28 font-semibold tracking-tight custom-color" style="--custom-color: #1e5d63;">Magical Moments Start Here</h2>
-                                    </div>
+            </div>
                                     <div class="site-banner-content-body">
                                         <div class="entry-excerpt text-14">
                                             <p>Find Joy with Our Exciting Selection of Kids Toys and Clothing</p>
-                                        </div>
-                                        <a href="{{ url('/shop') }}" class="link-text current-color">View More <i class="fa fa-arrow-right"></i></a>
-                                    </div>
-                                </div>
+        </div>
+                                        <a href="{{ url('/shop') }}" class="link-text current-color">View More <span class="arrow-icon">→</span></a>
+    </div>
+                </div>
                             </div>
                             <a href="{{ url('/shop') }}" class="wrap-element site-banner-link"></a>
+                            </div>
                         </div>
-                    </div>
-                    
+                        
                     <!-- Banner 2 -->
                     <div class="mixed-banner-item">
                         <div class="site-banner banner-style-default space-sm" style="background-image: url('{{ asset('public/theme/default/images/banner-08.jpg') }}');">
                             <div class="site-banner-content wrap-element items-center justify-start">
-                                <div class="site-banner-inner w-70 md-w-80 lg-w-70 custom-color" style="--custom-color: #6b7280;">
+                                <div class="site-banner-inner w-70 md-w-80 lg-w-70 custom-color" style="--custom-color: #674b40;">
                                     <div class="site-banner-content-header">
-                                        <h4 class="entry-subtitle text-13">Exclusive Discount</h4>
-                                        <h2 class="entry-title text-24 md:text-28 font-semibold tracking-tight custom-color" style="--custom-color: #6b7280;">Fun Finds for Every Growing Mind</h2>
-                                    </div>
+                                        <h4 class="entry-subtitle text-13 exclusive-discount-label-brown">Exclusive Discount</h4>
+                                        <h2 class="entry-title text-24 md:text-28 font-semibold tracking-tight custom-color" style="--custom-color: #674b40;">Fun Finds for Every Growing Mind</h2>
+                            </div>
                                     <div class="site-banner-content-body">
-                                        <div class="entry-excerpt text-14">
+                                        <div class="entry-excerpt text-14" style="color: #674b40;">
                                             <p>Your Go-To Destination for Toys and Apparel That Inspire and Delight</p>
-                                        </div>
-                                        <a href="{{ url('/shop') }}" class="link-text current-color">View More <i class="fa fa-arrow-right"></i></a>
-                                    </div>
-                                </div>
+                            </div>
+                                        <a href="{{ url('/shop') }}" class="link-text current-color" style="color: #674b40;">View More <span class="arrow-icon">→</span></a>
+                        </div>
+                            </div>
                             </div>
                             <a href="{{ url('/shop') }}" class="wrap-element site-banner-link"></a>
                         </div>
@@ -495,12 +514,12 @@
                             ->skip(3)
                             ->take(3)
                             ->get();
-                    @endphp
+                @endphp
                     @foreach($right_products as $product)
                         <div class="mixed-product-card-item">
                             <div class="product-card-horizontal">
                                 <div class="product-image-wrapper-horizontal">
-                                    <a href="{{ url('/product/'.$product->slug) }}">
+                            <a href="{{ url('/product/'.$product->slug) }}">
                                         @php
                                             $image_files = ['1-78-500x500.jpg', '1-79-500x500.jpg', '1-56-500x500.jpg'];
                                             $image_index = $loop->index % count($image_files);
@@ -516,7 +535,7 @@
                                     @endif
                                 </div>
                                 <div class="product-content-horizontal">
-                                    <div class="product-rating">
+                                <div class="product-rating">
                                         @php
                                             $reviews_count = $product->reviews->count();
                                             $avg_rating = $reviews_count > 0 ? $product->reviews->avg('rating') : 2.00;
@@ -525,7 +544,7 @@
                                         @endphp
                                         <div class="stars">
                                             @for($i = 0; $i < $full_stars; $i++)
-                                                <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
                                             @endfor
                                             @if($half_star)
                                                 <i class="fa fa-star-half-o"></i>
@@ -533,30 +552,30 @@
                                             @for($i = $full_stars + ($half_star ? 1 : 0); $i < 5; $i++)
                                                 <i class="fa fa-star-o"></i>
                                             @endfor
-                                        </div>
+                                </div>
                                         <span class="rating-number">{{ number_format($avg_rating, 2) }}</span>
-                                    </div>
+                            </div>
                                     <h3 class="product-name-horizontal">
                                         <a href="{{ url('/product/'.$product->slug) }}">{{ $product->translation->name ?? $product->name }}</a>
-                                    </h3>
+                            </h3>
                                     <div class="product-price-horizontal">
                                         @if($product->discount_price && $product->price)
                                             <span class="current-price">{{ show_price($product->discount_price) }}</span>
                                             <span class="original-price">{{ show_price($product->price) }}</span>
-                                        @else
+                                @else
                                             <span class="current-price">{{ show_price($product->price) }}</span>
-                                        @endif
-                                    </div>
+                                    @endif
+                                </div>
                                     <button class="add-to-cart-btn-horizontal" type="button" data-product-id="{{ $product->id }}">
                                         Add to cart
                                     </button>
-                                </div>
-                            </div>
                         </div>
-                    @endforeach
+                    </div>
                 </div>
+                @endforeach
             </div>
         </div>
+    </div>
     </div>
     <!--end Mixed Products and Banners Section-->
 
@@ -580,80 +599,80 @@
                     <div class="category-card">
                         <div class="category-image-wrapper">
                             <img src="{{ asset('public/theme/default/images/banner-10.png') }}" alt="Toddler Girl" class="category-image">
-                        </div>
+                                </div>
                         <h3 class="category-title">Toddler Girl</h3>
                         <p class="category-subtitle">3.457 K Products</p>
-                    </div>
-                </div>
+                                </div>
+                            </div>
                 
                 <!-- Category Card 3: Best Seller -->
                 <div class="category-card-item">
-                    <div class="category-card">
+                    <div class="category-card category-card-bestseller">
                         <div class="category-image-wrapper">
                             <img src="{{ asset('public/theme/default/images/banner-15.png') }}" alt="Best Seller" class="category-image">
                         </div>
-                        <h3 class="category-title">Best Seller</h3>
-                        <p class="category-subtitle">3.457 K Products</p>
-                    </div>
-                </div>
+                        <h3 class="category-title category-title-bestseller">Best Seller</h3>
+                        <p class="category-subtitle category-subtitle-bestseller">3.457 K Products</p>
+                                </div>
+                                </div>
                 
                 <!-- Category Card 4: Kid Girl -->
                 <div class="category-card-item">
                     <div class="category-card">
                         <div class="category-image-wrapper">
                             <img src="{{ asset('public/theme/default/images/banner-11.png') }}" alt="Kid Girl" class="category-image">
-                        </div>
+                            </div>
                         <h3 class="category-title">Kid Girl</h3>
                         <p class="category-subtitle">3.457 K Products</p>
-                    </div>
-                </div>
+                        </div>
+                                </div>
                 
                 <!-- Category Card 5: Baby Boy -->
                 <div class="category-card-item">
                     <div class="category-card">
                         <div class="category-image-wrapper">
                             <img src="{{ asset('public/theme/default/images/banner-12.png') }}" alt="Baby Boy" class="category-image">
-                        </div>
+                                </div>
                         <h3 class="category-title">Baby Boy</h3>
                         <p class="category-subtitle">3.457 K Products</p>
-                    </div>
+                            </div>
                 </div>
                 
                 <!-- Category Card 6: Trending -->
                 <div class="category-card-item">
-                    <div class="category-card">
+                    <div class="category-card category-card-trending">
                         <div class="category-image-wrapper">
                             <img src="{{ asset('public/theme/default/images/banner-16.png') }}" alt="Trending" class="category-image">
                         </div>
-                        <h3 class="category-title">Trending</h3>
-                        <p class="category-subtitle">3.457 K Products</p>
+                        <h3 class="category-title category-title-trending">Trending</h3>
+                        <p class="category-subtitle category-subtitle-trending">3.457 K Products</p>
+                        </div>
                     </div>
-                </div>
-                
+                    
                 <!-- Category Card 7: Toddler Boy -->
                 <div class="category-card-item">
                     <div class="category-card">
                         <div class="category-image-wrapper">
-                            <img src="{{ asset('public/theme/default/images/banner-15.png') }}" alt="Toddler Boy" class="category-image">
-                        </div>
+                            <img src="{{ asset('public/theme/default/images/banner-13.png') }}" alt="Toddler Boy" class="category-image">
+                            </div>
                         <h3 class="category-title">Toddler Boy</h3>
                         <p class="category-subtitle">3.457 K Products</p>
-                    </div>
-                </div>
+                            </div>
+                            </div>
                 
                 <!-- Category Card 8: Kid Boy -->
                 <div class="category-card-item">
                     <div class="category-card">
                         <div class="category-image-wrapper">
-                            <img src="{{ asset('public/theme/default/images/banner-16.png') }}" alt="Kid Boy" class="category-image">
-                        </div>
+                            <img src="{{ asset('public/theme/default/images/banner-14.png') }}" alt="Kid Boy" class="category-image">
+                            </div>
                         <h3 class="category-title">Kid Boy</h3>
                         <p class="category-subtitle">3.457 K Products</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     <!--end Category Cards Section-->
 
     <!-- Brand Logos Section -->
@@ -662,7 +681,7 @@
             <div class="brand-logos-row">
                 <div class="brand-logo-item">
                     <img src="{{ asset('public/theme/default/images/logo-01.png') }}" alt="Brand Logo 1" class="brand-logo">
-                </div>
+    </div>
                 <div class="brand-logo-item">
                     <img src="{{ asset('public/theme/default/images/logo-02.png') }}" alt="Brand Logo 2" class="brand-logo">
                 </div>
@@ -691,10 +710,10 @@
 
     <!-- Weekly Sales Products Section -->
     <div class="weekly-sales-section">
-        <div class="container">
+    <div class="container">
             <div class="section-header-sales">
                 <h2 class="section-title-sales">Don't miss this weeks sales</h2>
-                <a href="{{ url('/shop') }}" class="view-more-link-sales">View More →</a>
+                <a href="{{ url('/shop') }}" class="view-more-link-sales">View More <span class="arrow-icon">→</span></a>
             </div>
             
             <div class="products-carousel-wrapper">
@@ -723,11 +742,11 @@
                                             $discount_percent = round((($product->price - $product->discount_price) / $product->price) * 100);
                                         @endphp
                                         <span class="discount-badge">{{ $discount_percent }}%</span>
-                                    @endif
+											@endif
                                     <button class="wishlist-btn" type="button">
                                         <i class="fa fa-heart"></i>
-                                    </button>
-                                </div>
+                                            </button>
+                                    </div>
                                 <div class="product-rating">
                                     @php
                                         $reviews_count = $product->reviews->count();
@@ -741,7 +760,7 @@
                                         @endfor
                                         @if($half_star)
                                             <i class="fa fa-star-half-o"></i>
-                                        @endif
+										@endif
                                         @for($i = $full_stars + ($half_star ? 1 : 0); $i < 5; $i++)
                                             <i class="fa fa-star-o"></i>
                                         @endfor
@@ -755,18 +774,18 @@
                                     @if($product->discount_price && $product->price)
                                         <span class="current-price">{{ show_price($product->discount_price) }}</span>
                                         <span class="original-price">{{ show_price($product->price) }}</span>
-                                    @else
+										@else
                                         <span class="current-price">{{ show_price($product->price) }}</span>
-                                    @endif
-                                </div>
+										@endif
+                                    </div>
                                 <button class="add-to-cart-btn" type="button" data-product-id="{{ $product->id }}">
                                     Add to cart
                                 </button>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
+									</div>
+								</div>
+                            @endforeach
+							</div>
+						</div>
             
             <!-- Carousel Navigation Dots -->
             <div class="products-carousel-dots">
@@ -775,9 +794,9 @@
                 <span class="dot-item" data-slide="2"></span>
                 <span class="dot-item" data-slide="3"></span>
                 <span class="dot-item" data-slide="4"></span>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+		</div>
     <!--end Weekly Sales Products Section-->
 
     <!-- Dual Promotional Banners Section -->
@@ -790,20 +809,20 @@
                         <div class="site-banner-content wrap-element items-center justify-start">
                             <div class="site-banner-inner w-70 md-w-80 lg-w-70 custom-color" style="--custom-color: #78350f;">
                                 <div class="site-banner-content-header">
-                                    <h4 class="entry-subtitle text-13" style="color: #78350f;">Exclusive Discount</h4>
+                                    <h4 class="entry-subtitle text-13 exclusive-discount-label">Exclusive Discount</h4>
                                     <h2 class="entry-title text-24 md:text-28 font-semibold tracking-tight custom-color" style="--custom-color: #78350f;">Discover a World of Joyful Surprises for Kids</h2>
-                                </div>
+            </div>
                                 <div class="site-banner-content-body">
                                     <div class="entry-excerpt text-14" style="color: #78350f;">
                                         <p>Transforming Childhood into an Exciting Journey with Our Handpicked Selection of Joyful Toys and Trendy Clothing</p>
-                                    </div>
-                                    <a href="{{ url('/shop') }}" class="link-text current-color" style="color: #78350f;">View More <i class="fa fa-arrow-right"></i></a>
-                                </div>
-                            </div>
                         </div>
-                        <a href="{{ url('/shop') }}" class="wrap-element site-banner-link"></a>
+                                    <a href="{{ url('/shop') }}" class="link-text current-color" style="color: #78350f;">View More <span class="arrow-icon">→</span></a>
+                        </div>
                     </div>
                 </div>
+                        <a href="{{ url('/shop') }}" class="wrap-element site-banner-link"></a>
+                        </div>
+                        </div>
                 
                 <!-- Banner 2 - Off-white Background -->
                 <div class="dual-banner-item">
@@ -811,22 +830,22 @@
                         <div class="site-banner-content wrap-element items-center justify-start">
                             <div class="site-banner-inner w-70 md-w-80 lg-w-70 custom-color" style="--custom-color: #991b1b;">
                                 <div class="site-banner-content-header">
-                                    <h4 class="entry-subtitle text-13" style="color: #991b1b;">Exclusive Discount</h4>
+                                    <h4 class="entry-subtitle text-13 exclusive-discount-label">Exclusive Discount</h4>
                                     <h2 class="entry-title text-24 md:text-28 font-semibold tracking-tight custom-color" style="--custom-color: #991b1b;">Discover a Wonderland of Magical Moments for Kids</h2>
-                                </div>
+                    </div>
                                 <div class="site-banner-content-body">
                                     <div class="entry-excerpt text-14" style="color: #991b1b;">
                                         <p>Filling Your Child's World with Color and Fun - Discover Toys and Gifts That Inspire Creativity and Happiness</p>
-                                    </div>
-                                    <a href="{{ url('/shop') }}" class="link-text current-color" style="color: #991b1b;">View More <i class="fa fa-arrow-right"></i></a>
-                                </div>
-                            </div>
+                </div>
+                                    <a href="{{ url('/shop') }}" class="link-text current-color" style="color: #991b1b;">View More <span class="arrow-icon">→</span></a>
                         </div>
-                        <a href="{{ url('/shop') }}" class="wrap-element site-banner-link"></a>
+                        </div>
                     </div>
+                        <a href="{{ url('/shop') }}" class="wrap-element site-banner-link"></a>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <!--end Dual Promotional Banners Section-->
 
@@ -1033,6 +1052,56 @@
     height: 100%;
 }
 
+.hero-banner-carousel:hover .banner-nav-arrow {
+    opacity: 1;
+    visibility: visible;
+}
+
+.banner-nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.banner-nav-arrow:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.banner-nav-arrow i {
+    font-size: 20px;
+    color: #333;
+    display: inline-block;
+    font-family: 'FontAwesome' !important;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.banner-nav-prev {
+    left: 20px;
+}
+
+.banner-nav-next {
+    right: 20px;
+}
+
 .hero-slide {
     position: absolute;
     top: 0;
@@ -1044,7 +1113,7 @@
     background-repeat: no-repeat;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s ease-in-out;
@@ -1063,6 +1132,8 @@
     z-index: 2;
     max-width: 60%;
     padding: 0;
+    margin-left: 0;
+    text-align: left;
 }
 
 .banner-content-left {
@@ -1660,7 +1731,9 @@
 }
 
 .benefit-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     font-size: 13px;
     font-weight: 500;
     font-style: normal;
@@ -1674,6 +1747,15 @@
 .benefit-link:hover {
     color: rgb(0, 0, 0);
     text-decoration: underline;
+}
+
+.benefit-link .arrow-icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.benefit-link:hover .arrow-icon {
+    transform: translateX(5px);
 }
 
 @media (max-width: 991px) {
@@ -1815,6 +1897,7 @@
     width: 437.34px;
     min-width: 437.34px;
     max-width: 437.34px;
+    height: 260px;
 }
 
 .site-banner {
@@ -1860,6 +1943,10 @@
     width: 70%;
 }
 
+.site-banner-inner.w-70.md-w-80.lg-w-70.custom-color {
+    padding: 30px;
+}
+
 .site-banner-content-header {
     margin-bottom: 15px;
 }
@@ -1891,6 +1978,22 @@
     margin-bottom: 8px;
     font-family: 'Fredoka', sans-serif;
     display: block;
+}
+
+.exclusive-discount-label {
+    font-style: normal;
+    font-weight: 400;
+    color: #075445;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.exclusive-discount-label-brown {
+    font-style: normal;
+    font-weight: 400;
+    color: #674b40;
+    font-size: 16px;
+    line-height: 24px;
 }
 
 .entry-title {
@@ -1931,6 +2034,15 @@
 
 .link-text i {
     font-size: 12px;
+}
+
+.link-text .arrow-icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.link-text:hover .arrow-icon {
+    transform: translateX(5px);
 }
 
 .custom-color {
@@ -2279,10 +2391,11 @@
     flex: 0 0 calc(12.5% - 17.5px);
     min-width: 140px;
     max-width: 180px;
+    background: #fff;
 }
 
 .category-card {
-    background: #fff;
+    background: #f3f4f6;
     border-radius: 12px;
     padding: 20px;
     text-align: center;
@@ -2297,6 +2410,15 @@
 .category-card:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
     transform: translateY(-5px);
+}
+
+.category-card-bestseller {
+    background: #fff1f2;
+    
+}
+
+.category-card-trending {
+    background: #fff1f2;
 }
 
 .category-image-wrapper {
@@ -2333,6 +2455,30 @@
     margin: 0;
     font-family: 'Fredoka', sans-serif;
     line-height: 1.4;
+}
+
+/* Best Seller Card - Custom Title and Subtitle Styles */
+.category-title-bestseller {
+   color: #e2244d;
+   font-size: 16px;
+   line-height: 24px;
+   font-weight: 600;
+}
+
+.category-subtitle-bestseller {
+    color: #fb7386;
+}
+
+/* Trending Card - Custom Title and Subtitle Styles */
+.category-title-trending {
+   color: #e2244d;
+   font-size: 16px;
+   line-height: 24px;
+   font-weight: 600;
+}
+
+.category-subtitle-trending {
+    color: #fb7386;
 }
 
 @media (max-width: 1200px) {
@@ -2515,11 +2661,23 @@
     text-decoration: none;
     font-family: 'Fredoka', sans-serif;
     transition: color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .view-more-link-sales:hover {
     color: #0052a3;
     text-decoration: underline;
+}
+
+.view-more-link-sales .arrow-icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.view-more-link-sales:hover .arrow-icon {
+    transform: translateX(5px);
 }
 
 .weekly-sales-section .products-carousel-wrapper {
@@ -2795,7 +2953,7 @@
 /* Dual Promotional Banners Section Styles */
 .dual-promotional-banners-section {
     background: #fff;
-    padding: 60px 0;
+        padding: 60px 0;
     width: 100%;
 }
 
@@ -2846,7 +3004,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+        width: 100%;
     height: 100%;
     z-index: 1;
 }
@@ -2971,6 +3129,7 @@
     
     .dual-banner-item .site-banner-inner {
         width: 80%;
+        
     }
     
     .dual-banner-item .entry-title {
@@ -3042,7 +3201,7 @@
 }
 
 .testimonial-time {
-    font-size: 12px;
+        font-size: 12px;
     font-weight: 400;
     line-height: 18px;
     color: 
@@ -3155,7 +3314,7 @@
 /* Cash Back Banner Section Styles */
 .cashback-banner-section {
     background: #fff;
-    padding: 40px 0;
+    padding: 0px 0;
     width: 100%;
 }
 
@@ -3170,30 +3329,39 @@
 .cashback-banner {
     background: #f5f5f5;
     border-radius: 12px;
-    padding: 30px 40px;
+    width: 1360px;
+    height: 64px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 40px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 30px;
     flex-direction: row;
+    box-sizing: border-box;
 }
 
 .cashback-content {
-    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cashback-text-wrapper {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 12px;
 }
 
 .cashback-title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
-    color: #0c4a6e;
+    line-height: 22px;
+    color: rgb(12, 74, 110);
     margin: 0;
     font-family: 'Fredoka', sans-serif;
     display: inline-block;
@@ -3208,23 +3376,34 @@
     display: inline-block;
 }
 
+.cashback-earn-text {
+    font-style: normal;
+    font-weight: 600;
+    color: rgb(12, 74, 110);
+    font-size: 14px;
+    line-height: 21px;
+}
+
+.cashback-preapproved-text {
+    font-style: normal;
+    font-weight: 400;
+    color: rgb(12, 74, 110);
+    font-size: 14px;
+    line-height: 21px;
+}
+
 .cashback-button {
-    background: #fff;
-    color: #0c4a6e;
+    background: #f5f5f5;
+    color: #0c4a6e !important;
     border: 1px solid #0c4a6e;
     border-radius: 8px;
-    padding: 12px 30px;
+    padding: 8px 18px;
     font-size: 16px;
     font-weight: 500;
     text-decoration: none;
     font-family: 'Fredoka', sans-serif;
     transition: all 0.3s ease;
     white-space: nowrap;
-}
-
-.cashback-button:hover {
-    background: #0c4a6e;
-    color: #fff;
 }
 
 @media (max-width: 767px) {
@@ -3278,11 +3457,23 @@
     text-decoration: none;
     font-family: 'Fredoka', sans-serif;
     transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .view-more-link:hover {
     color: #1d4ed8;
     text-decoration: underline;
+}
+
+.view-more-link .arrow-icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.view-more-link:hover .arrow-icon {
+    transform: translateX(5px);
 }
 
 .products-carousel-wrapper {
@@ -3293,7 +3484,7 @@
 
 .products-carousel-track {
     display: flex;
-    gap: 15px;
+        gap: 15px;
     overflow: visible;
     padding-bottom: 20px;
     justify-content: center;
@@ -3341,7 +3532,7 @@
     margin: 0 auto;
     transition: transform 0.3s ease;
     flex-wrap: nowrap;
-    width: 100%;
+        width: 100%;
     overflow: hidden;
     padding-bottom: 20px;
 }
@@ -3380,9 +3571,9 @@
 .product-image-wrapper a {
     display: block;
     width: 100%;
-    height: 100%;
-}
-
+        height: 100%;
+    }
+    
 .product-image {
     width: 100%;
     height: 100%;
@@ -3445,7 +3636,7 @@
 }
 
 .stars i {
-    font-size: 14px;
+        font-size: 14px;
 }
 
 .rating-number {
@@ -5843,9 +6034,9 @@
                     </form>
                     <p class="newsletter-terms">By subscribing you agree to our <a href="#">Terms & Conditions</a> and <a href="#">Privacy & Cookie Policy</a></p>
                 </div>
+                </div>
             </div>
-        </div>
-        
+            
         <!-- Footer Links Section -->
         <div class="footer-links-section">
             <div class="footer-links-grid">
@@ -5877,9 +6068,9 @@
                         <li><a href="#">Terms and Conditions</a></li>
                         <li><a href="#">Cookie Settings</a></li>
                         <li><a href="#">Help Center</a></li>
-                    </ul>
-                </div>
-                
+                </ul>
+            </div>
+            
                 <!-- Column 3: Make Money with Us -->
                 <div class="footer-column">
                     <h3 class="footer-column-title">Make Money with Us</h3>
@@ -5907,7 +6098,7 @@
                         <li><a href="#">Social Responsibility</a></li>
                         <li><a href="#">Store Locations</a></li>
                     </ul>
-                </div>
+                    </div>
                 
                 <!-- Column 5: For Buyers -->
                 <div class="footer-column">
@@ -5965,13 +6156,31 @@
                 });
             });
             
-            // Auto-rotate hero banner every 5 seconds
-            if (totalHeroSlides > 1) {
-                setInterval(function() {
+            // Arrow navigation
+            const prevArrow = document.querySelector('.banner-nav-prev');
+            const nextArrow = document.querySelector('.banner-nav-next');
+            
+            if (prevArrow) {
+                prevArrow.addEventListener('click', function() {
+                    currentHeroSlide = (currentHeroSlide - 1 + totalHeroSlides) % totalHeroSlides;
+                    showHeroSlide(currentHeroSlide);
+                });
+            }
+            
+            if (nextArrow) {
+                nextArrow.addEventListener('click', function() {
                     currentHeroSlide = (currentHeroSlide + 1) % totalHeroSlides;
                     showHeroSlide(currentHeroSlide);
-                }, 5000);
+                });
             }
+            
+            // Auto-rotate hero banner disabled - manual navigation only
+            // if (totalHeroSlides > 1) {
+            //     setInterval(function() {
+            //         currentHeroSlide = (currentHeroSlide + 1) % totalHeroSlides;
+            //         showHeroSlide(currentHeroSlide);
+            //     }, 5000);
+            // }
             
             const track = document.querySelector('.products-carousel-track');
             if (!track) return;
@@ -6032,8 +6241,8 @@
             carousel.on('slide.bs.carousel', function(e) {
                 avatarItems.removeClass('active');
                 avatarItems.eq(e.to).addClass('active');
+            });
         });
-    });
     
-</script>
+    </script>
 @endsection

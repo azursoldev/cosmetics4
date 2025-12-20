@@ -32,6 +32,8 @@
     <link rel="stylesheet" href="{{ asset('public/theme/default/css/magnific-popup.min.css') }}">
 	<!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('public/theme/default/css/font-awesome.css') }}">
+    <!-- Font Awesome CDN Fallback -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoess0OP0BzACB+Q1xw5J7eJq9+7P9m6w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<!-- Fancybox -->
 	<link rel="stylesheet" href="{{ asset('public/theme/default/css/jquery.fancybox.min.css') }}">
 	<!-- Themify Icons -->
@@ -152,8 +154,9 @@
 			
 			<!-- Div 1: Top Utility Bar (First Image Section) -->
 			<div class="header-section-1">
-				<div class="container-fluid">
+		<div class="container-fluid">
 					<div class="utility-row">
+						<!-- Left: All Items -->
 						<div class="utility-left">
 							@if(get_option('phone'))
 							<a href="tel:{{ get_option('phone') }}" class="utility-item">
@@ -166,11 +169,10 @@
 								<i class="fa fa-envelope"></i>
 								<span>{{ get_option('email') }}</span>
 							</a>
+							<span class="utility-separator"></span>
 							@endif
 							<a href="{{ url('/about-us') }}" class="utility-link">About Us</a>
 							<a href="{{ url('/contact') }}" class="utility-link">Contact</a>
-						</div>
-						<div class="utility-center">
 							<span class="utility-badge">
 								<i class="fa fa-check-circle"></i>
 								<span>Safe Payment</span>
@@ -180,18 +182,20 @@
 								<span>Free Shipping</span>
 							</span>
 						</div>
+						<!-- Right: Language and Currency -->
 						<div class="utility-right">
-							<div class="language-selector">
-								<a href="#" class="lang-btn" id="selectLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="utility-separator"></span>
+									<div class="language-selector">
+										<a href="#" class="lang-btn" id="selectLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									<span class="lang-text">{{ get_language() }}</span>
 									<i class="fa fa-chevron-down"></i>
-								</a>
-								<div class="dropdown-menu" aria-labelledby="selectLanguage">
-									@foreach( get_language_list() as $language )
-										<a class="dropdown-item" href="{{ url('select_language/'.$language) }}">{{ $language }}</a>
-									@endforeach
-								</div>
-							</div>
+										</a>
+										<div class="dropdown-menu" aria-labelledby="selectLanguage">
+											@foreach( get_language_list() as $language )
+												<a class="dropdown-item" href="{{ url('select_language/'.$language) }}">{{ $language }}</a>
+											@endforeach
+										</div>
+									</div>
 							<div class="currency-selector">
 								<a href="#" class="currency-btn" id="selectCurrency" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									<span class="currency-text">{{ session('currency') ? session('currency') : currency() }}</span>
@@ -215,17 +219,17 @@
 						<!-- Logo -->
 						<div class="header-logo">
 							<a href="{{ url('') }}" class="bumedi-logo">
-								<img src="{{ asset('public/theme/default/images/bumedi-logo.svg') }}" alt="bumëdi" class="logo-img-bumedi">
+								<img src="{{ asset('public/theme/default/images/bumedi-logo.svg') }}" alt="bumedi" class="logo-img-bumedi">
 							</a>
 						</div>
-						
+					
 						<!-- Search Bar -->
 						<div class="header-search-wrapper">
 							<form action="{{ url('/shop') }}" method="GET" class="header-search-form">
 								<div class="search-input-wrapper">
 									<i class="fa fa-search search-icon"></i>
 									<input type="text" name="search" class="header-search-input" placeholder="Search everything at bumedi store...">
-								</div>
+							</div>
 								<button type="submit" class="search-submit-btn">Search</button>
 							</form>
 						</div>
@@ -233,11 +237,11 @@
 						<!-- User Actions -->
 						<div class="header-actions">
 							<div class="action-icons">
-								<a href="{{ url('/wish_list') }}" class="action-icon" title="Wishlist">
+								<a href="{{ url('/wish_list') }}" class="action-icon action-icon-wishlist" title="Wishlist">
 									<i class="fa fa-heart-o"></i>
 								</a>
 								<a href="javascript:void(0)" class="action-icon" title="Compare">
-									<i class="fa fa-exchange"></i>
+									<i class="fa fa-arrows-h"></i>
 								</a>
 								<div class="action-icon-user-wrapper">
 									@if(Auth::check())

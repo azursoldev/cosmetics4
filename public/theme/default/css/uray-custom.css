@@ -9,24 +9,14 @@ p, span, a, li, td, th, label {
 /* Top Promo Bar */
 .top-promo-bar {
     width: 100%;
-    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    background-color: #0092db;
+    background-image: url('../images/pattern-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
     position: relative;
     overflow: hidden;
     z-index: 1000;
-}
-
-.top-promo-bar::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-    pointer-events: none;
 }
 
 .top-promo-slider {
@@ -144,9 +134,9 @@ p, span, a, li, td, th, label {
 
 /* Header Section 1: Top Utility Bar (First Image Section) */
 .header-section-1 {
-    background: #f8f9fa;
+    background: #ffffff;
     border-bottom: 1px solid #e9ecef;
-    padding: 10px 0;
+    padding: 12px 0;
     font-size: 13px;
 }
 
@@ -162,7 +152,7 @@ p, span, a, li, td, th, label {
 .utility-left {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
 }
 
 .utility-item {
@@ -171,36 +161,40 @@ p, span, a, li, td, th, label {
     gap: 6px;
     color: #333;
     text-decoration: none;
+    font-size: 13px;
     transition: color 0.3s;
 }
 
 .utility-item i {
-    color: #666;
-    font-size: 12px;
+    color: #333;
+    font-size: 13px;
 }
 
 .utility-item:hover {
-    color: #2563eb;
+    color: #333;
 }
 
 .utility-item:hover i {
-    color: #2563eb;
+    color: #333;
 }
 
 .utility-link {
     color: #333;
     text-decoration: none;
+    font-size: 13px;
     transition: color 0.3s;
 }
 
 .utility-link:hover {
-    color: #2563eb;
+    color: #333;
+    text-decoration: underline;
 }
 
-.utility-center {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+.utility-separator {
+    width: 1px;
+    height: 16px;
+    background: #ddd;
+    display: inline-block;
 }
 
 .utility-badge {
@@ -208,11 +202,12 @@ p, span, a, li, td, th, label {
     align-items: center;
     gap: 6px;
     color: #28a745;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .utility-badge i {
     font-size: 14px;
+    color: #28a745;
 }
 
 .utility-right {
@@ -230,26 +225,25 @@ p, span, a, li, td, th, label {
 .currency-btn {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     color: #333;
     text-decoration: none;
     font-size: 13px;
-    padding: 4px 8px;
-    border: 1px solid #ddd;
-    background: #fff;
-    border-radius: 4px;
-    transition: all 0.3s;
+    padding: 0;
+    border: none;
+    background: transparent;
+    transition: color 0.3s;
 }
 
 .lang-btn:hover,
 .currency-btn:hover {
-    border-color: #2563eb;
-    color: #2563eb;
+    color: #333;
 }
 
 .lang-btn i,
 .currency-btn i {
     font-size: 10px;
+    color: #333;
 }
 
 /* Header Section 2: Main Header Row (Second Image Section) */
@@ -298,18 +292,27 @@ p, span, a, li, td, th, label {
 /* Header Search */
 .header-search-wrapper {
     flex: 1;
-    max-width: 600px;
+    max-width: 843.26px;
 }
 
 .header-search-form {
     display: flex;
     gap: 0;
     width: 100%;
+    height: 50px;
+    background: #e0f2fe;
+    border-radius: 50px;
+    overflow: hidden;
+    border: none;
+    align-items: center;
 }
 
 .search-input-wrapper {
     position: relative;
     flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .search-icon {
@@ -317,44 +320,51 @@ p, span, a, li, td, th, label {
     left: 15px;
     top: 50%;
     transform: translateY(-50%);
-    color: #999;
+    color: #2563eb;
     font-size: 16px;
     z-index: 1;
 }
 
 .header-search-input {
     width: 100%;
-    padding: 12px 15px 12px 45px;
-    border: 2px solid #e0e7ff;
-    background: #f0f4ff;
-    border-radius: 8px 0 0 8px;
+    height: 100%;
+    padding: 0 15px 0 45px;
+    border: none;
+    background: transparent;
+    border-radius: 0;
     font-size: 14px;
     color: #333;
     transition: all 0.3s;
 }
 
+.header-search-input::placeholder {
+    color: #999;
+}
+
 .header-search-input:focus {
     outline: none;
-    border-color: #2563eb;
-    background: #fff;
+    background: transparent;
 }
 
 .search-submit-btn {
-    padding: 12px 30px;
+    height: 100%;
+    padding: 0 30px;
     background: #2563eb;
     color: #fff;
-    border: 2px solid #2563eb;
-    border-left: none;
-    border-radius: 0 8px 8px 0;
+    border: none;
+    border-radius: 0;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .search-submit-btn:hover {
     background: #1d4ed8;
-    border-color: #1d4ed8;
 }
 
 /* Header Actions */
@@ -383,53 +393,68 @@ p, span, a, li, td, th, label {
     text-decoration: none;
     transition: all 0.3s;
     font-size: 16px;
+    flex-shrink: 0;
 }
 
 .action-icon:hover {
-    background: #2563eb;
-    color: #fff;
+    background: transparent;
+    color: #2563eb;
     border-color: #2563eb;
+}
+
+.action-icon-wishlist {
+    border-color: #ef4444 !important;
+    color: #ef4444 !important;
+}
+
+.action-icon-wishlist:hover {
+    background: transparent !important;
+    color: #ef4444 !important;
+    border-color: #ef4444 !important;
 }
 
 .action-icon-user-wrapper {
     position: relative;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 10px;
+}
+
+.action-icon-user-wrapper .action-icon {
+    flex-shrink: 0;
 }
 
 .user-link-text {
-    font-size: 11px;
+    font-size: 12px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 0;
-    line-height: 1.2;
+    line-height: 1.3;
 }
 
 .sign-in-text {
-    color: #333;
-    font-weight: 600;
-    font-size: 11px;
+    color: #000;
+    font-weight: 700;
+    font-size: 13px;
 }
 
 .account-text {
     color: #999;
-    font-size: 10px;
+    font-size: 12px;
 }
 
 .header-cart-section {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     position: relative;
 }
 
 .cart-icon-wrapper {
     position: relative;
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     border: 2px solid #e0e7ff;
     border-radius: 50%;
     display: flex;
@@ -437,13 +462,14 @@ p, span, a, li, td, th, label {
     justify-content: center;
     color: #2563eb;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 16px;
     transition: all 0.3s;
+    flex-shrink: 0;
 }
 
 .cart-icon-wrapper:hover {
-    background: #2563eb;
-    color: #fff;
+    background: transparent;
+    color: #2563eb;
     border-color: #2563eb;
 }
 
@@ -466,7 +492,7 @@ p, span, a, li, td, th, label {
 .cart-info {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 0;
     text-align: left;
 }
 
@@ -477,19 +503,16 @@ p, span, a, li, td, th, label {
 }
 
 .cart-amount {
-    font-size: 14px;
-    font-weight: 600;
-    color: #333;
-    line-height: 1.2;
-    margin-bottom: 2px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #000;
+    line-height: 1.3;
 }
 
 .cart-label {
-    font-size: 10px;
+    font-size: 12px;
     color: #999;
-    text-transform: uppercase;
-    line-height: 1.2;
-    letter-spacing: 0.5px;
+    line-height: 1.3;
 }
 
 /* Header Section 3: Navigation Menu (Third Image Section) */
@@ -527,30 +550,42 @@ p, span, a, li, td, th, label {
     align-items: center;
     gap: 5px;
     padding: 15px 18px;
-    color: #333;
+    color: #000;
     text-decoration: none;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
     transition: all 0.3s;
-    border-bottom: 3px solid transparent;
+    border-bottom: none;
+    white-space: nowrap;
 }
 
 .nav-link:hover,
 .nav-link.menu-active {
     color: #2563eb;
-    border-bottom-color: #2563eb;
+    border-bottom: none;
 }
 
 .nav-link-blue {
+    color: #2563eb !important;
+    font-weight: 400 !important;
+}
+
+.nav-link-blue:hover {
     color: #2563eb !important;
 }
 
 .nav-link-orange {
     color: #ff6b35 !important;
+    font-weight: 400 !important;
+}
+
+.nav-link-orange:hover {
+    color: #ff6b35 !important;
 }
 
 .nav-link i {
     font-size: 10px;
+    margin-left: 4px;
 }
 
 .nav-item.has-dropdown .dropdown-menu {
@@ -604,11 +639,12 @@ p, span, a, li, td, th, label {
 .nav-action-link {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     color: #666;
     text-decoration: none;
-    font-size: 13px;
+    font-size: 14px;
     transition: color 0.3s;
+    white-space: nowrap;
 }
 
 .nav-action-link:hover {
@@ -616,7 +652,8 @@ p, span, a, li, td, th, label {
 }
 
 .nav-action-link i {
-    font-size: 14px;
+    font-size: 16px;
+    color: #2563eb;
 }
 
 /* Global Button Styles - Consistent Border Radius and Colors */
