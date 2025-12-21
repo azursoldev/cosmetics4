@@ -35,6 +35,7 @@
 						$("#mobile-cart .total-count").html(json['total_items']);
 						//Update Cart Icon Badge
 						$(".number-cart").html(json['total_items']);
+						$(".cart-count").html(json['total_items']);
 					}else{
 						$.toast({
 							text: json['message'],
@@ -72,6 +73,7 @@
 						$("#mobile-cart .total-count").html(json['total_items']);
 						//Update Cart Icon Badge
 						$(".number-cart").html(json['total_items']);
+						$(".cart-count").html(json['total_items']);
 					}else{
 						$.toast({
 							text: json['message'],
@@ -87,6 +89,117 @@
     		});
     	}
 
+    });
+
+    // Handler for .add-to-cart-btn and .add-to-cart-btn-horizontal buttons on home page
+    $(document).on('click','.add-to-cart-btn, .add-to-cart-btn-horizontal',function(event){
+    	event.preventDefault();
+    	event.stopPropagation();
+    	var elem = $(this);
+    	var productId = $(this).data('product-id');
+    	var originalText = $(this).html();
+    	
+    	if(!productId){
+    		console.error('Product ID not found on button:', this);
+    		return false;
+    	}
+
+    	// Get base URL - check multiple possible sources
+    	var baseUrl = typeof _url !== 'undefined' ? _url : (window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, ''));
+    	if(!baseUrl || baseUrl === 'undefined'){
+    		baseUrl = window.location.origin;
+    	}
+
+    	$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+
+    	$.ajax({
+    		url: baseUrl + '/add_to_cart/' + productId,
+    		method: "POST",
+    		data: { 
+				'quantity': 1
+			}, 
+			beforeSend: function(){
+				$(elem).prop('disabled', true);
+				$(elem).html('<i class="fa fa-circle-o-notch fa-spin"></i>');
+			},
+			success: function(data){
+				$(elem).prop('disabled', false);
+				
+				var json = JSON.parse(JSON.stringify(data));
+				
+				if(json['result'] == true){
+					//Update Dropdown Cart
+					if($("#mini-cart").length > 0){
+						$("#mini-cart").html(json['data']);
+					}
+					if($("#mobile-cart .total-count").length > 0){
+						$("#mobile-cart .total-count").html(json['total_items']);
+					}
+					//Update Cart Icon Badge
+					if($(".number-cart").length > 0){
+						$(".number-cart").html(json['total_items']);
+					}
+					if($(".cart-count").length > 0){
+						$(".cart-count").html(json['total_items']);
+					}
+					
+					// Update cart total amount if provided
+					if(json['cart_total'] !== undefined && $('.cart-amount').length > 0){
+						// Note: You may need to format this on the server side or use a helper function
+						// For now, we'll just update if we have the formatted value
+					}
+					
+					// Show success feedback
+					$(elem).html('<i class="fa fa-check"></i> Added');
+					setTimeout(function(){
+						$(elem).html(originalText);
+					}, 2000);
+					
+					// Show success toast
+					if(typeof $.toast !== 'undefined'){
+						$.toast({
+							text: 'Product added to cart successfully!',
+							showHideTransition: 'slide',
+							icon: 'success',
+							position : 'top-right' 
+						});
+					}
+				}else{
+					$(elem).html(originalText);
+					if(typeof $.toast !== 'undefined'){
+						$.toast({
+							text: json['message'] || 'Failed to add product to cart',
+							showHideTransition: 'slide',
+							icon: 'error',
+							position : 'top-right' 
+						});
+					}
+				}
+			},
+			error: function (request, status, error) {
+				$(elem).prop('disabled', false);
+				$(elem).html(originalText);
+				console.error('Add to cart error:', request, status, error);
+				if(typeof $.toast !== 'undefined'){
+					var errorMsg = 'An error occurred. Please try again.';
+					if(request.responseJSON && request.responseJSON.message){
+						errorMsg = request.responseJSON.message;
+					}
+					$.toast({
+						text: errorMsg,
+						showHideTransition: 'slide',
+						icon: 'error',
+						position : 'top-right' 
+					});
+				} else {
+					alert('An error occurred. Please try again.');
+				}
+			}
+    	});
     });
 
     $(document).on('click','#update-cart',function(event){

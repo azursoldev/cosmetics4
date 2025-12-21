@@ -59,7 +59,7 @@
 	<link rel="stylesheet" href="{{ asset('public/theme/default/css/reset.css') }}">
 	<link rel="stylesheet" href="{{ asset('public/theme/default/style.css?v=1.2') }}">
     <link rel="stylesheet" href="{{ asset('public/theme/default/css/responsive.css?v=1.2') }}">
-    <link rel="stylesheet" href="{{ asset('public/theme/default/css/uray-custom.css?v=1.0') }}">  
+    <link rel="stylesheet" href="{{ asset('public/theme/default/css/uray-custom.css?v=1.1') }}">  
     @include('theme.default.components.custom_styles') 
 	@include('layouts.others.languages')
 
@@ -284,6 +284,14 @@
 				<div class="container-fluid">
 					<nav class="main-navigation">
 						<ul class="nav-menu">
+							<li class="nav-item has-dropdown">
+								<a href="{{ url('/shop') }}" class="nav-link">Categories <i class="fa fa-chevron-down"></i></a>
+								<ul class="dropdown-menu">
+									@foreach(App\Entity\Category\Category::where('parent_id',null)->take(10)->get() as $category)
+										<li><a href="{{ url('/shop?category='.$category->slug) }}">{{ $category->translation->name }}</a></li>
+									@endforeach
+								</ul>
+							</li>
 							<li class="nav-item has-dropdown">
 								<a href="{{ url('/') }}" class="nav-link">Home <i class="fa fa-chevron-down"></i></a>
 							</li>

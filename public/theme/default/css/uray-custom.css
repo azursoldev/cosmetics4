@@ -9,7 +9,7 @@ p, span, a, li, td, th, label {
 /* Top Promo Bar */
 .top-promo-bar {
     width: 100%;
-    background-color: #0092db;
+    background-color: #e0f2fe;
     background-image: url('../images/pattern-bg.jpg');
     background-size: cover;
     background-position: center;
@@ -18,7 +18,9 @@ p, span, a, li, td, th, label {
     overflow: hidden;
     z-index: 1000;
 }
-
+form#checkout-form {
+    z-index: 1;
+}
 .top-promo-slider {
     position: relative;
 }
@@ -47,7 +49,7 @@ p, span, a, li, td, th, label {
 }
 
 .top-promo-text {
-    color: #ffffff;
+    color: #1e40af;
     font-size: 14px;
     font-weight: 500;
     text-align: center;
@@ -59,10 +61,10 @@ p, span, a, li, td, th, label {
 .top-promo-nav {
     background: transparent;
     border: none;
-    color: #ffffff;
+    color: #1e40af;
     cursor: pointer;
     padding: 4px 8px;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
@@ -83,7 +85,7 @@ p, span, a, li, td, th, label {
 
 .top-promo-nav:hover {
     opacity: 1;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(30, 64, 175, 0.1);
 }
 
 .top-promo-nav:active {
@@ -134,8 +136,8 @@ p, span, a, li, td, th, label {
 
 /* Header Section 1: Top Utility Bar (First Image Section) */
 .header-section-1 {
-    background: #ffffff;
-    border-bottom: 1px solid #e9ecef;
+    background: #1e3a8a;
+    border-bottom: none;
     padding: 12px 0;
     font-size: 13px;
 }
@@ -159,41 +161,41 @@ p, span, a, li, td, th, label {
     display: flex;
     align-items: center;
     gap: 6px;
-    color: #333;
+    color: #ffffff;
     text-decoration: none;
     font-size: 13px;
     transition: color 0.3s;
 }
 
 .utility-item i {
-    color: #333;
+    color: #ffffff;
     font-size: 13px;
 }
 
 .utility-item:hover {
-    color: #333;
+    color: #e0e7ff;
 }
 
 .utility-item:hover i {
-    color: #333;
+    color: #e0e7ff;
 }
 
 .utility-link {
-    color: #333;
+    color: #ffffff;
     text-decoration: none;
     font-size: 13px;
     transition: color 0.3s;
 }
 
 .utility-link:hover {
-    color: #333;
+    color: #e0e7ff;
     text-decoration: underline;
 }
 
 .utility-separator {
     width: 1px;
     height: 16px;
-    background: #ddd;
+    background: rgba(255, 255, 255, 0.3);
     display: inline-block;
 }
 
@@ -201,13 +203,13 @@ p, span, a, li, td, th, label {
     display: flex;
     align-items: center;
     gap: 6px;
-    color: #28a745;
+    color: #ffffff;
     font-size: 13px;
 }
 
 .utility-badge i {
     font-size: 14px;
-    color: #28a745;
+    color: #ffffff;
 }
 
 .utility-right {
@@ -226,7 +228,7 @@ p, span, a, li, td, th, label {
     display: flex;
     align-items: center;
     gap: 5px;
-    color: #333;
+    color: #ffffff;
     text-decoration: none;
     font-size: 13px;
     padding: 0;
@@ -237,13 +239,38 @@ p, span, a, li, td, th, label {
 
 .lang-btn:hover,
 .currency-btn:hover {
-    color: #333;
+    color: #e0e7ff;
 }
 
 .lang-btn i,
 .currency-btn i {
     font-size: 10px;
+    color: #ffffff;
+}
+
+.language-selector .dropdown-menu,
+.currency-selector .dropdown-menu {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    min-width: 120px;
+    padding: 5px 0;
+    margin-top: 5px;
+}
+
+.language-selector .dropdown-menu .dropdown-item,
+.currency-selector .dropdown-menu .dropdown-item {
     color: #333;
+    padding: 8px 15px;
+    font-size: 13px;
+    transition: all 0.3s;
+}
+
+.language-selector .dropdown-menu .dropdown-item:hover,
+.currency-selector .dropdown-menu .dropdown-item:hover {
+    background: #f5f5f5;
+    color: #1e3a8a;
 }
 
 /* Header Section 2: Main Header Row (Second Image Section) */
@@ -303,7 +330,7 @@ p, span, a, li, td, th, label {
     background: #e0f2fe;
     border-radius: 50px;
     overflow: hidden;
-    border: none;
+    border: 1px solid transparent;
     align-items: center;
 }
 
@@ -349,10 +376,10 @@ p, span, a, li, td, th, label {
 .search-submit-btn {
     height: 100%;
     padding: 0 30px;
-    background: #2563eb;
+    background: #ff6b35;
     color: #fff;
     border: none;
-    border-radius: 0;
+    border-radius: 0 50px 50px 0;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
@@ -364,7 +391,7 @@ p, span, a, li, td, th, label {
 }
 
 .search-submit-btn:hover {
-    background: #1d4ed8;
+    background: #e55a2b;
 }
 
 /* Header Actions */
@@ -640,7 +667,7 @@ p, span, a, li, td, th, label {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #666;
+    color: #333;
     text-decoration: none;
     font-size: 14px;
     transition: color 0.3s;
@@ -654,6 +681,11 @@ p, span, a, li, td, th, label {
 .nav-action-link i {
     font-size: 16px;
     color: #2563eb;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Global Button Styles - Consistent Border Radius and Colors */
@@ -710,9 +742,7 @@ input[type="button"]:not(.btn-circle):not(.btn-round) {
 .header .container-fluid {
     padding: 0;
 }
-.header-desktop {
-    padding: 15px 30px;
-}
+
 .header-menu-desktop {
     align-items: center;
 }

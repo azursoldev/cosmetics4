@@ -77,7 +77,8 @@ class CartController extends Controller
             }else{
 				$view = view("theme.$this->theme.components.mini-cart")->render();
 				$total_items = Cart::getTotalQuantity();
-				return response()->json(['result' => true, 'data' => $view, 'total_items' => $total_items]);
+				$cart_total = Cart::getTotal();
+				return response()->json(['result' => true, 'data' => $view, 'total_items' => $total_items, 'cart_total' => $cart_total]);
             }
 
         }else{
@@ -142,7 +143,8 @@ class CartController extends Controller
                 //return view("theme.$this->theme.components.mini-cart");
 				$view = view("theme.$this->theme.components.mini-cart")->render();
 				$total_items = Cart::getTotalQuantity();
-				return response()->json(['result' => true, 'data' => $view, 'total_items' => $total_items]);
+				$cart_total = Cart::getTotal();
+				return response()->json(['result' => true, 'data' => $view, 'total_items' => $total_items, 'cart_total' => $cart_total]);
             }
         }
         

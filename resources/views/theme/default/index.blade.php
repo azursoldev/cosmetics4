@@ -223,8 +223,11 @@
                 <div class="products-carousel-track" id="popular-products-carousel">
                     @php
                         $popular_products = \App\Entity\Product\Product::where('is_active', 1)
-                            ->orderBy('created_at', 'desc')
+                            ->where('in_stock', 1)
+                            ->withCount('reviews')
                             ->with(['reviews', 'files', 'translation'])
+                            ->orderBy('reviews_count', 'desc')
+                            ->orderBy('created_at', 'desc')
                             ->take(10)
                             ->get();
                     @endphp
@@ -234,15 +237,21 @@
                                 <div class="product-image-wrapper">
                                     <a href="{{ url('/product/'.$product->slug) }}">
                                         @php
-                                            $image_files = ['1-43-500x500.jpg', '1-42-500x500.jpg', '1-41-500x500.jpg', '1-59-500x500.jpg', '1-40-500x500.jpg'];
-                                            $image_index = $loop->index % count($image_files);
-                                            $product_image = $image_files[$image_index];
+                                            // Get product image from database - dynamic
+                                            $product_image = null;
+                                            if($product->image && isset($product->image->file_path) && $product->image->file_path && $product->image->file_path != 'media/no-image.png') {
+                                                $product_image = asset('storage/app/'. $product->image->file_path);
+                                            }
+                                            // Fallback to default placeholder image
+                                            if(!$product_image) {
+                                                $product_image = asset('public/theme/default/images/product1.png');
+                                            }
                                         @endphp
-                                        <img src="{{ asset('public/theme/default/images/'.$product_image) }}" alt="{{ $product->translation->name ?? $product->name }}" class="product-image">
+                                        <img src="{{ $product_image }}" alt="{{ $product->translation->name ?? $product->name }}" class="product-image" onerror="this.src='{{ asset('public/theme/default/images/product1.png') }}'">
                                     </a>
-                                    @if($product->discount_price && $product->price)
+                                    @if($product->special_price && $product->price && $product->special_price < $product->price)
                                         @php
-                                            $discount_percent = round((($product->price - $product->discount_price) / $product->price) * 100);
+                                            $discount_percent = round((($product->price - $product->special_price) / $product->price) * 100);
                                         @endphp
                                         <span class="discount-badge">{{ $discount_percent }}%</span>
                                     @endif
@@ -252,8 +261,9 @@
                             </div>
                                 <div class="product-rating">
                                     @php
+                                        // Calculate dynamic rating from actual reviews
                                         $reviews_count = $product->reviews->count();
-                                        $avg_rating = $reviews_count > 0 ? $product->reviews->avg('rating') : 3.67;
+                                        $avg_rating = $reviews_count > 0 ? round($product->reviews->avg('rating'), 2) : 0;
                                         $full_stars = floor($avg_rating);
                                         $half_star = ($avg_rating - $full_stars) >= 0.5;
                                     @endphp
@@ -267,18 +277,18 @@
                                         @for($i = $full_stars + ($half_star ? 1 : 0); $i < 5; $i++)
                                             <i class="fa fa-star-o"></i>
                                         @endfor
-                        </div>
+                                    </div>
                                     <span class="rating-number">{{ number_format($avg_rating, 2) }}</span>
-                    </div>
+                                </div>
                                 <h3 class="product-name">
                                     <a href="{{ url('/product/'.$product->slug) }}">{{ $product->translation->name ?? $product->name }}</a>
                                 </h3>
                                 <div class="product-price">
-                                    @if($product->discount_price && $product->price)
-                                        <span class="current-price">{{ show_price($product->discount_price) }}</span>
-                                        <span class="original-price">{{ show_price($product->price) }}</span>
+                                    @if($product->special_price && $product->price && $product->special_price < $product->price)
+                                        <span class="current-price">{!! show_price($product->special_price) !!}</span>
+                                        <span class="original-price">{!! show_price($product->price) !!}</span>
                                     @else
-                                        <span class="current-price">{{ show_price($product->price) }}</span>
+                                        <span class="current-price">{!! show_price($product->price) !!}</span>
                                     @endif
                 </div>
                                 <button class="add-to-cart-btn" type="button" data-product-id="{{ $product->id }}">
@@ -412,9 +422,9 @@
                                         @endphp
                                         <img src="{{ asset('public/theme/default/images/'.$product_image) }}" alt="{{ $product->translation->name ?? $product->name }}" class="product-image-horizontal">
                                     </a>
-                                    @if($product->discount_price && $product->price)
+                                    @if($product->special_price && $product->price && $product->special_price < $product->price)
                                         @php
-                                            $discount_percent = round((($product->price - $product->discount_price) / $product->price) * 100);
+                                            $discount_percent = round((($product->price - $product->special_price) / $product->price) * 100);
                                         @endphp
                                         <span class="discount-badge">{{ $discount_percent }}%</span>
                                     @endif
@@ -444,11 +454,11 @@
                                         <a href="{{ url('/product/'.$product->slug) }}">{{ $product->translation->name ?? $product->name }}</a>
                             </h3>
                                     <div class="product-price-horizontal">
-                                        @if($product->discount_price && $product->price)
-                                            <span class="current-price">{{ show_price($product->discount_price) }}</span>
-                                            <span class="original-price">{{ show_price($product->price) }}</span>
+                                        @if($product->special_price && $product->price && $product->special_price < $product->price)
+                                            <span class="current-price">{!! show_price($product->special_price) !!}</span>
+                                            <span class="original-price">{!! show_price($product->price) !!}</span>
                                 @else
-                                            <span class="current-price">{{ show_price($product->price) }}</span>
+                                            <span class="current-price">{!! show_price($product->price) !!}</span>
                                     @endif
                                 </div>
                                     <button class="add-to-cart-btn-horizontal" type="button" data-product-id="{{ $product->id }}">
@@ -527,9 +537,9 @@
                                         @endphp
                                         <img src="{{ asset('public/theme/default/images/'.$product_image) }}" alt="{{ $product->translation->name ?? $product->name }}" class="product-image-horizontal">
                                     </a>
-                                    @if($product->discount_price && $product->price)
+                                    @if($product->special_price && $product->price && $product->special_price < $product->price)
                                         @php
-                                            $discount_percent = round((($product->price - $product->discount_price) / $product->price) * 100);
+                                            $discount_percent = round((($product->price - $product->special_price) / $product->price) * 100);
                                         @endphp
                                         <span class="discount-badge">{{ $discount_percent }}%</span>
                                     @endif
@@ -559,11 +569,11 @@
                                         <a href="{{ url('/product/'.$product->slug) }}">{{ $product->translation->name ?? $product->name }}</a>
                             </h3>
                                     <div class="product-price-horizontal">
-                                        @if($product->discount_price && $product->price)
-                                            <span class="current-price">{{ show_price($product->discount_price) }}</span>
-                                            <span class="original-price">{{ show_price($product->price) }}</span>
+                                        @if($product->special_price && $product->price && $product->special_price < $product->price)
+                                            <span class="current-price">{!! show_price($product->special_price) !!}</span>
+                                            <span class="original-price">{!! show_price($product->price) !!}</span>
                                 @else
-                                            <span class="current-price">{{ show_price($product->price) }}</span>
+                                            <span class="current-price">{!! show_price($product->price) !!}</span>
                                     @endif
                                 </div>
                                     <button class="add-to-cart-btn-horizontal" type="button" data-product-id="{{ $product->id }}">
@@ -719,9 +729,14 @@
             <div class="products-carousel-wrapper">
                 <div class="products-carousel-track">
                     @php
+                        // Get products with special prices (sales) - weekly sales should show products on discount
                         $weekly_sales_products = \App\Entity\Product\Product::where('is_active', 1)
-                            ->orderBy('created_at', 'desc')
+                            ->where('in_stock', 1)
+                            ->whereNotNull('special_price')
+                            ->whereRaw('special_price < price')
+                            ->withCount('reviews')
                             ->with(['reviews', 'files', 'translation'])
+                            ->orderBy('created_at', 'desc')
                             ->take(10)
                             ->get();
                     @endphp
@@ -731,26 +746,33 @@
                                 <div class="product-image-wrapper">
                                     <a href="{{ url('/product/'.$product->slug) }}">
                                         @php
-                                            $image_files = ['1-43-500x500.jpg', '1-42-500x500.jpg', '1-41-500x500.jpg', '1-59-500x500.jpg', '1-40-500x500.jpg'];
-                                            $image_index = $loop->index % count($image_files);
-                                            $product_image = $image_files[$image_index];
+                                            // Get product image from database - dynamic
+                                            $product_image = null;
+                                            if($product->image && isset($product->image->file_path) && $product->image->file_path && $product->image->file_path != 'media/no-image.png') {
+                                                $product_image = asset('storage/app/'. $product->image->file_path);
+                                            }
+                                            // Fallback to default placeholder image
+                                            if(!$product_image) {
+                                                $product_image = asset('public/theme/default/images/product1.png');
+                                            }
                                         @endphp
-                                        <img src="{{ asset('public/theme/default/images/'.$product_image) }}" alt="{{ $product->translation->name ?? $product->name }}" class="product-image">
+                                        <img src="{{ $product_image }}" alt="{{ $product->translation->name ?? $product->name }}" class="product-image" onerror="this.src='{{ asset('public/theme/default/images/product1.png') }}'">
                                     </a>
-                                    @if($product->discount_price && $product->price)
+                                    @if($product->special_price && $product->price && $product->special_price < $product->price)
                                         @php
-                                            $discount_percent = round((($product->price - $product->discount_price) / $product->price) * 100);
+                                            $discount_percent = round((($product->price - $product->special_price) / $product->price) * 100);
                                         @endphp
                                         <span class="discount-badge">{{ $discount_percent }}%</span>
-											@endif
+                                    @endif
                                     <button class="wishlist-btn" type="button">
                                         <i class="fa fa-heart"></i>
                                             </button>
                                     </div>
                                 <div class="product-rating">
                                     @php
+                                        // Calculate dynamic rating from actual reviews
                                         $reviews_count = $product->reviews->count();
-                                        $avg_rating = $reviews_count > 0 ? $product->reviews->avg('rating') : 4.33;
+                                        $avg_rating = $reviews_count > 0 ? round($product->reviews->avg('rating'), 2) : 0;
                                         $full_stars = floor($avg_rating);
                                         $half_star = ($avg_rating - $full_stars) >= 0.5;
                                     @endphp
@@ -771,11 +793,11 @@
                                     <a href="{{ url('/product/'.$product->slug) }}">{{ $product->translation->name ?? $product->name }}</a>
                                 </h3>
                                 <div class="product-price">
-                                    @if($product->discount_price && $product->price)
-                                        <span class="current-price">{{ show_price($product->discount_price) }}</span>
-                                        <span class="original-price">{{ show_price($product->price) }}</span>
+                                    @if($product->special_price && $product->price && $product->special_price < $product->price)
+                                        <span class="current-price">{!! show_price($product->special_price) !!}</span>
+                                        <span class="original-price">{!! show_price($product->price) !!}</span>
 										@else
-                                        <span class="current-price">{{ show_price($product->price) }}</span>
+                                        <span class="current-price">{!! show_price($product->price) !!}</span>
 										@endif
                                     </div>
                                 <button class="add-to-cart-btn" type="button" data-product-id="{{ $product->id }}">
@@ -6123,7 +6145,7 @@
 
 @endsection
 @section('js-script')
-    <script src="{{ asset('public/theme/default/js/cart.js?v=1.1') }}"></script>
+    <script src="{{ asset('public/theme/default/js/cart.js?v=1.2') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Hero Banner Carousel
