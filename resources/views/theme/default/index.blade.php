@@ -1,4 +1,4 @@
-@extends('theme.default.website')
+﻿@extends('theme.default.website')
 
 @section('content')
 <style>
@@ -3717,7 +3717,7 @@
     background: #ffb366;
     color: #d97706;
     border: none;
-    border-radius: 8px;
+    border-radius: 30px;
     font-size: 14px;
     font-weight: 600;
     font-family: 'Fredoka', sans-serif;
@@ -4787,12 +4787,14 @@
     gap: 15px;
 }
 
+
 .add-to-cart-btn {
-    padding: 10px 18px;
-    background: #fff;
-    color: #1f2937;
-    border: 1px solid #1f2937;
-    border-radius: 35px;
+    border-radius: 30px !important;
+    background: #fff3e7 !important;
+    border: 0 !important;
+    color: #fe8614 !important;
+    font-weight: 600 !important;
+    padding: 12px 18px;
     font-size: 14px;
     font-weight: 500;
     font-family: 'Fredoka', sans-serif;
@@ -4883,9 +4885,11 @@
     color: #fff;
 }
 
+
+
 .add-to-cart-btn:hover {
-    background: #1f2937;
-    color: #fff;
+     background: #fe8614 !important;
+    color: #fff !Important;
 }
 
 .products-pagination {
@@ -6037,6 +6041,7 @@
         gap: 30px;
     }
 }
+
 </style>
 
 <!-- Footer Section -->

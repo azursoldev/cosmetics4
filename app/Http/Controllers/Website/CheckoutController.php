@@ -287,24 +287,18 @@ public function store(Request $request)
     }
 
   // ✅ Prepare redirect URL for PayPal
-$firstItem = Cart::getContent()->first();
+    $totalAmount = Cart::getSubTotal() + $shippingRate;
+    $quantity = 1;
 
-// Calculate totals
-$productCost = $firstItem ? $firstItem->price : 0;
-$quantity = $firstItem ? $firstItem->quantity : 1;
-
-// ✅ Add shipping rate inside product cost
-$productCostWithShipping = ($productCost * $quantity) + $shippingRate;
-
-$redirectUrl = "https://www.clearcosmetics.us/clear/Payments/buyonline.php";
-$redirectUrl .= "?quantity=" . $quantity;
-$redirectUrl .= "&pg=standardPay";
-$redirectUrl .= "&product_name=Order id: " . urlencode($order->id);
-$redirectUrl .= "&p_id=" . ($firstItem ? $firstItem->id : '0');
-$redirectUrl .= "&product_id=" . ($firstItem ? $firstItem->id : '0');
-$redirectUrl .= "&product_cost=" . $productCostWithShipping; // ✅ shipping included
-$redirectUrl .= "&shipping_rate=" . $shippingRate; // optional (keep if you still want to show it separately)
-$redirectUrl .= "&website_name=M11&target=";
+    $redirectUrl = "https://www.clearcosmetics.us/clear/Payments/buyonline.php";
+    $redirectUrl .= "?quantity=" . $quantity;
+    $redirectUrl .= "&pg=standardPay";
+    $redirectUrl .= "&product_name=Order id: " . urlencode($order->id);
+    $redirectUrl .= "&p_id=" . $order->id;
+    $redirectUrl .= "&product_id=" . $order->id;
+    $redirectUrl .= "&product_cost=" . $totalAmount; // ✅ Total Amount including shipping
+    $redirectUrl .= "&shipping_rate=" . $shippingRate; // optional (keep if you still want to show it separately)
+    $redirectUrl .= "&website_name=M11&target=";
 
 
 

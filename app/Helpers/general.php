@@ -588,7 +588,7 @@ if ( ! function_exists( 'get_currency_symbol' ))
 		include(app_path().'/Helpers/currency_symbol.php');
         
 		if (array_key_exists($currency_code, $currency_symbols)){
-			return $currency_symbols[$currency_code];
+			return html_entity_decode($currency_symbols[$currency_code], ENT_QUOTES, 'UTF-8');
 		}
 		return $currency_code;
 		

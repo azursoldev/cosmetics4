@@ -50,6 +50,20 @@ class WebsiteController extends Controller
     }
 
     /**
+     * Show the Contact Page
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function contact()
+    {
+        $seo_title = _lang('Contact Us') . ' - ' . get_option('site_title');
+        $meta_keywords = get_option('meta_keywords');
+        $meta_description = get_option('meta_description');
+        
+        return view("theme.$this->theme.templates.template-contact", compact('seo_title', 'meta_keywords', 'meta_description'));
+    }
+
+    /**
      * Show the Home Page
      *
      * @return \Illuminate\Contracts\Support\Renderable

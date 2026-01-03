@@ -24,6 +24,7 @@ Route::group(['middleware' => ['install']], function () {
 	Route::get('/tags/{slug}', 'Website\WebsiteController@tags');
 	Route::get('/cart', 'Website\WebsiteController@cart');
 	Route::get('/checkout', 'Website\WebsiteController@checkout');
+	Route::get('/contact', 'Website\WebsiteController@contact');
 	Route::post('/send_message', 'Website\WebsiteController@send_message');
 	Route::post('/subscribe_newsletter', 'Website\WebsiteController@subscribe_newsletter');
 	Route::match(['get','post'],'/sign_in', 'Website\CustomerController@sign_in');

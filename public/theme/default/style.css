@@ -5147,7 +5147,7 @@ Version:1.0
 	display: block;
 	text-align: center;
 	border-radius: 3px;
-	line-height: 40px;
+	line-height: 40px !important;
 	background:var(--primary-color);
 }
 .contact-us .single-info ul
@@ -5955,4 +5955,26 @@ Version:1.0
 		padding: 0px;
 	}
 
+}
+
+a.add_to_cart {
+    border-radius: 30px !important;
+    background: #fff3e7 !important;
+    border: 0 !important;
+    color: #fe8614 !important;
+    font-weight: 600 !important;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Fredoka', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
+}
+
+a.add_to_cart:hover {
+    background: #fe8614 !important;
+    color: #fff ! Important;
 }
