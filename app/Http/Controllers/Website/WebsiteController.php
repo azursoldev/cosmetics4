@@ -114,7 +114,7 @@ class WebsiteController extends Controller
             return redirect('categories/' . $category . '?category=' . $category . '&search=' . $search);
         }
         
-        $data['products'] = $this->filter(Product::where('is_active',1)); 
+        $data['products'] = $this->filter(Product::where('is_active',1)->where('in_stock', 1)->withCount('reviews')->with(['reviews', 'files', 'translation'])); 
         $data['seo_title'] = _lang('Shop').' - '.get_option('site_title');                    
 
         return view("theme.$this->theme.shop", $data);
@@ -492,10 +492,13 @@ class WebsiteController extends Controller
                                         }else if($sort_by == 'a_to_z'){
                                             return $query->join('product_translations','products.id','product_translations.product_id')
                                                         ->orderBy('name', 'asc');
-                                        }else if($sort_by == 'a_to_z'){
+                                        }else if($sort_by == 'z_to_a'){
                                            return $query->join('product_translations','products.id','product_translations.product_id')
                                                         ->orderBy('name', 'desc');
                                         }    
+                                    }, function ($query) {
+                                        return $query->orderBy('reviews_count', 'desc')
+                                                     ->orderBy('created_at', 'desc');
                                     })
                                     ->when($search, function ($query, $search) {
                                         if($search != ''){

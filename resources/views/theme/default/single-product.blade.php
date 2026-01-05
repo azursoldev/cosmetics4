@@ -140,11 +140,10 @@
 
 								<div class="add-to-cart">
 									@if($product->in_stock == 1)
-										<a href="{{ url('add_to_cart/'.$product->id) }}" data-type="{{ $product->product_type }}" class="btn add_to_cart">{{ _lang('Add to Cart') }}</a>
+										<a href="{{ url('add_to_cart/'.$product->id) }}" data-type="{{ $product->product_type }}" class="btn add_to_cart btn-add-to-cart-single">{{ _lang('Add to Cart') }}</a>
 									@else
-										<a href="#" class="btn disabled">{{ _lang('Add to Cart') }}</a>
+										<a href="#" class="btn disabled btn-add-to-cart-single">{{ _lang('Add to Cart') }}</a>
 									@endif
-									<a href="{{ wishlist_url($product) }}" class="btn min btn-wishlist"><i class="ti-heart"></i></a>
 								</div>
 
 
