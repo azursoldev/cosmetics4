@@ -74,26 +74,19 @@
                     <div class="hero-sidebar-box">
                         <ul class="sidebar-categories-list">
                             @php
-                                // Matching icons exactly as per the image description
-                                $categories = [
-                                    ['name' => 'Allergies', 'icon' => '006-test-tube.svg', 'slug' => 'allergies'], // Test tube with liquid bubbling
-                                    ['name' => 'Cosmetics', 'icon' => '004-cream.svg', 'slug' => 'cosmetics'], // Tube for creams/lotions
-                                    ['name' => 'Cough, Cold, Fever', 'icon' => '006-nose.svg', 'slug' => 'cough-cold-fever'], // Nose with spray (bottle with dropper alternative)
-                                    ['name' => 'Dietary', 'icon' => '025-pills.svg', 'slug' => 'dietary'], // Blister pack with multiple pills
-                                    ['name' => 'Health', 'icon' => '023-briefcase.svg', 'slug' => 'health'], // Medical briefcase/first aid kit
-                                    ['name' => 'Medication', 'icon' => '013-syringe.svg', 'slug' => 'medication'], // Syringe
-                                    ['name' => 'Medicine', 'icon' => '007-pills.svg', 'slug' => 'medicine'], // Two pills (one whole, one broken with powder)
-                                    ['name' => 'Mouth & Teeth', 'icon' => '027-brush.svg', 'slug' => 'mouth-teeth'], // Brush (toothbrush alternative)
-                                    ['name' => 'Nutrition', 'icon' => '016-notepad.svg', 'slug' => 'nutrition'], // Clipboard with checklist
-                                    ['name' => 'Pollen Sneeze', 'icon' => '006-nose.svg', 'slug' => 'pollen-sneeze'], // Nose with spray bottle
-                                    ['name' => 'Protection', 'icon' => '008-liposuction.svg', 'slug' => 'protection'] // Flexed arm with bicep (protection/strength)
-                                ];
+                                $categories = \App\Entity\Category\Category::where('parent_id', null)->take(11)->get();
                             @endphp
                             @foreach($categories as $category)
                                 <li class="sidebar-category-item">
-                                    <a href="{{ url('/shop?category='.$category['slug']) }}" class="sidebar-category-link">
-                                        <img src="{{ asset('public/theme/default/images/'.$category['icon']) }}" alt="{{ $category['name'] }}" class="sidebar-category-icon">
-                                        <span class="sidebar-category-name">{{ $category['name'] }}</span>
+                                    <a href="{{ url('/shop?category='.$category->slug) }}" class="sidebar-category-link">
+                                        @php
+                                            $icon = asset('public/theme/default/images/006-test-tube.svg'); // Default fallback
+                                            if($category->logo->file_path != 'media/no-image.png'){
+                                                $icon = asset('storage/app/'. $category->logo->file_path);
+                                            }
+                                        @endphp
+                                        <img src="{{ $icon }}" alt="{{ $category->translation->name }}" class="sidebar-category-icon">
+                                        <span class="sidebar-category-name">{{ $category->translation->name }}</span>
                                     </a>
                                 </li>
                             @endforeach

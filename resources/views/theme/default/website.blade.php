@@ -219,7 +219,7 @@
 						<!-- Logo -->
 						<div class="header-logo">
 							<a href="{{ url('') }}" class="bumedi-logo">
-								<img src="{{ asset('public/theme/default/images/bumedi-logo.svg') }}" alt="bumedi" class="logo-img-bumedi">
+								<img src="{{ asset('public/theme/default/images/logo.png') }}" alt="bumedi" class="logo-img-bumedi">
 							</a>
 						</div>
 					

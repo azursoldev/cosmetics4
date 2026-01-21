@@ -161,7 +161,7 @@ class WebsiteController extends Controller
     {
         $category = \App\Entity\Category\Category::where('slug', $slug)->first();
 
-        $products = $this->filter($category->products());   
+        $products = $this->filter($category->products()->withCount('reviews')->with(['reviews', 'files', 'translation']));   
 
         $seo_title = $category->translation->name.' - '.get_option('site_title');    
 
@@ -181,7 +181,7 @@ class WebsiteController extends Controller
             return view("theme.$this->theme.brands", compact('brands','seo_title'));
         }else{
             $brand = \App\Entity\Brand\Brand::where('slug',$slug)->first();
-            $products = $this->filter($brand->products());   
+            $products = $this->filter($brand->products()->withCount('reviews')->with(['reviews', 'files', 'translation']));   
             $seo_title = $brand->translation->name.' - '.get_option('site_title'); 
         }
 
@@ -200,7 +200,7 @@ class WebsiteController extends Controller
         $sort_by = isset(request()->sort_by) ? request()->sort_by : '';
 
         $tag = \App\Entity\Tag\Tag::where('slug', $slug)->first();
-        $products = $this->filter($tag->products());
+        $products = $this->filter($tag->products()->withCount('reviews')->with(['reviews', 'files', 'translation']));
 
         $tag_slug = $slug; 
         $seo_title = $tag->translation->name.' - '.get_option('site_title');                             
